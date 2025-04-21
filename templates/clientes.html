@@ -1,0 +1,32 @@
+<!-- templates/clientes.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>👥 Gestión de Clientes</h2>
+<p>Aquí aparecerán los datos de tus clientes.</p>
+
+<table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Última interacción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Juan Pérez</td>
+      <td>juan@example.com</td>
+      <td>+56 9 1234 5678</td>
+      <td>2025-04-21</td>
+    </tr>
+    <tr>
+      <td>Ana Rojas</td>
+      <td>ana@empresa.cl</td>
+      <td>+56 9 8765 4321</td>
+      <td>2025-04-18</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
