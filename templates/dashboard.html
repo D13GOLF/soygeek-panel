@@ -33,5 +33,32 @@
 <div class="grafico-panel">
   <canvas id="graficoTareas" width="400" height="200"></canvas>
 </div>
-{% endblock %}
 
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('graficoTareas').getContext('2d');
+  const graficoTareas = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Pendientes', 'Completadas'],
+      datasets: [{
+        label: 'Estado de Tareas',
+        data: [{{ tareas_pendientes }}, {{ tareas_completadas }}],
+        backgroundColor: ['#f59e0b', '#10b981'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fff',
+            font: { size: 14 }
+          }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
