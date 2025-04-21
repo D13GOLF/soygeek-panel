@@ -1,0 +1,28 @@
+<!-- templates/dashboard.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>📊 Panel de Control</h2>
+<p>Bienvenido al panel de administración de <strong>SoyGeek.cl</strong></p>
+
+<div class="row mt-4">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5><i class="fa fa-users text-primary"></i> Clientes</h5>
+      <p>Gestiona tus clientes registrados.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5><i class="fa fa-cogs text-success"></i> Servicios</h5>
+      <p>Visualiza y administra los servicios contratados.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5><i class="fa fa-robot text-warning"></i> Bot Inteligente</h5>
+      <p>Monitorea y ajusta tu Bot-Geek.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
