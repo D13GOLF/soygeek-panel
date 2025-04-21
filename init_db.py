@@ -19,20 +19,26 @@ def crear_tablas():
             )
         ''')
 
-        # Tabla tareas
+        # Tabla tareas básica sin repetir si ya existe
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS tareas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 titulo TEXT NOT NULL,
                 descripcion TEXT,
                 cliente_id INTEGER,
-                completada INTEGER DEFAULT 0,
+                fecha_vencimiento DATE,
                 FOREIGN KEY (cliente_id) REFERENCES clientes (id)
             )
         ''')
 
+        # Verificar si la columna 'estado' existe
+        cursor.execute("PRAGMA table_info(tareas)")
+        columnas = [col[1] for col in cursor.fetchall()]
+        if 'estado' not in columnas:
+            cursor.execute("ALTER TABLE tareas ADD COLUMN estado TEXT DEFAULT 'pendiente'")
+            print("✅ Columna 'estado' agregada a la tabla 'tareas'.")
+
         print("✅ Tablas creadas o ya existentes.")
 
-# Solo se ejecuta si este archivo es llamado desde otro
 if __name__ == "__main__":
     crear_tablas()
