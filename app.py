@@ -1,8 +1,12 @@
 from flask import Flask
 from core.auth import auth_bp
 from core.dashboard import dashboard_bp
+from init_db import crear_tablas
 
+# Crear tablas si no existen
+crear_tablas()
 app = Flask(__name__)
+app.secret_key = 'clave-secreta-soygeek'
 app.config.from_pyfile('config.py')
 
 app.register_blueprint(auth_bp)
