@@ -1,1 +1,52 @@
+.dashboard {
+  padding: 20px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #60a5fa;
+  text-shadow: 0 0 4px #0ea5e9;
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-radius: 12px;
+  padding: 20px;
+  width: calc(33.3% - 20px);
+  min-width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #93c5fd;
+}
+
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.card.warning { background: linear-gradient(135deg, #facc15, #fbbf24); color: #1e293b; }
+.card.danger { background: linear-gradient(135deg, #f87171, #ef4444); color: #1e293b; }
+.card.info { background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: #1e293b; }
+.card.success { background: linear-gradient(135deg, #34d399, #10b981); color: #1e293b; }
 
