@@ -10,3 +10,8 @@ app.register_blueprint(dashboard_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+# ⚠️ Solo temporalmente para crear la base de datos en Render
+if __name__ == '__main__':
+    import init_db
+    app.run()
