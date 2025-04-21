@@ -1,27 +1,35 @@
 <!-- templates/dashboard.html -->
 {% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>📊 Panel de Control</h2>
-<p>Bienvenido al panel de administración de <strong>SoyGeek.cl</strong></p>
+<div class="dashboard">
+  <h2 class="dashboard-title">Panel General SoyGeek 🤖</h2>
 
-<div class="row mt-4">
-  <div class="col-md-4">
-    <div class="card p-3">
-      <h5><i class="fa fa-users text-primary"></i> Clientes</h5>
-      <p>Gestiona tus clientes registrados.</p>
+  <div class="dashboard-cards">
+    <div class="card">
+      <h3>👥 Clientes</h3>
+      <p>{{ total_clientes }} registrados</p>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card p-3">
-      <h5><i class="fa fa-cogs text-success"></i> Servicios</h5>
-      <p>Visualiza y administra los servicios contratados.</p>
+    <div class="card">
+      <h3>✅ Tareas Completadas</h3>
+      <p>{{ tareas_completadas }} tareas</p>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card p-3">
-      <h5><i class="fa fa-robot text-warning"></i> Bot Inteligente</h5>
-      <p>Monitorea y ajusta tu Bot-Geek.</p>
+    <div class="card warning">
+      <h3>⏳ Tareas Pendientes</h3>
+      <p>{{ tareas_pendientes }} tareas</p>
+    </div>
+    <div class="card danger">
+      <h3>⚠️ Tareas Vencidas</h3>
+      <p>{{ tareas_vencidas }} urgentes</p>
+    </div>
+    <div class="card info">
+      <h3>🌐 Hosting por vencer</h3>
+      <p>{{ hostings_por_vencer }} servicios</p>
+    </div>
+    <div class="card success">
+      <h3>🤖 Bot Geek</h3>
+      <p>Estado: <strong>🟢 En línea</strong></p>
     </div>
   </div>
 </div>
