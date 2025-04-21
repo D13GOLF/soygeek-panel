@@ -1,40 +1,33 @@
 # core/dashboard.py
 from flask import Blueprint, render_template
 import sqlite3
-from datetime import datetime
+import os
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
-def get_db_connection():
-    conn = sqlite3.connect('db/data.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db', 'data.db')
 
 @dashboard_bp.route('/')
 def home():
-    conn = get_db_connection()
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
 
-    total_clientes = conn.execute('SELECT COUNT(*) FROM clientes').fetchone()[0]
-    tareas_completadas = conn.execute("SELECT COUNT(*) FROM tareas WHERE estado = 'completada'").fetchone()[0]
-    tareas_pendientes = conn.execute("SELECT COUNT(*) FROM tareas WHERE estado = 'pendiente'").fetchone()[0]
-    tareas_vencidas = conn.execute("SELECT COUNT(*) FROM tareas WHERE estado = 'pendiente' AND fecha_vencimiento < ?", (datetime.now().date(),)).fetchone()[0]
+        clientes_count = conn.execute("SELECT COUNT(*) FROM clientes").fetchone()[0]
+        tareas_pendientes = conn.execute("SELECT COUNT(*) FROM tareas WHERE estado = 'pendiente'").fetchone()[0]
+        tareas_completadas = conn.execute("SELECT COUNT(*) FROM tareas WHERE estado = 'completada'").fetchone()[0]
+        tareas_vencidas = conn.execute("SELECT COUNT(*) FROM tareas WHERE fecha_vencimiento < date('now') AND estado != 'completada'").fetchone()[0]
+        hostings_por_vencer = conn.execute("SELECT COUNT(*) FROM clientes WHERE hosting_vencimiento < date('now', '+7 days')").fetchone()[0]
 
-    # Si aún no tienes la columna fecha_vencimiento_hosting, este valor será 0
-    try:
-        hostings_por_vencer = conn.execute("SELECT COUNT(*) FROM clientes WHERE fecha_vencimiento_hosting < ?", (datetime.now().date(),)).fetchone()[0]
-    except:
-        hostings_por_vencer = 0
-
-    conn.close()
+        estado_bot = "Activo ✅"  # Aquí podrías hacer ping a tu bot más adelante
 
     return render_template('dashboard.html',
-        title="Panel de Control SoyGeek",
-        total_clientes=total_clientes,
-        tareas_completadas=tareas_completadas,
-        tareas_pendientes=tareas_pendientes,
-        tareas_vencidas=tareas_vencidas,
-        hostings_por_vencer=hostings_por_vencer
-    )
+                           title="Panel de Control",
+                           clientes_count=clientes_count,
+                           tareas_pendientes=tareas_pendientes,
+                           tareas_completadas=tareas_completadas,
+                           tareas_vencidas=tareas_vencidas,
+                           hostings_por_vencer=hostings_por_vencer,
+                           estado_bot=estado_bot)
 
 @dashboard_bp.route('/clientes')
 def clientes():
@@ -42,4 +35,12 @@ def clientes():
 
 @dashboard_bp.route('/servicios')
 def servicios():
-    return render_template('dashboard/servicios.html', title="Servicios Contratados")
+    return render_template('dashboard/servicios.html', title="Hostings Contratados")
+
+@dashboard_bp.route('/tareas')
+def tareas():
+    return render_template('dashboard/tareas.html', title="Gestión de Tareas")
+
+@dashboard_bp.route('/bot')
+def bot():
+    return render_template('dashboard/bot.html', title="Panel del Bot Geek")
