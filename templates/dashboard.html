@@ -1,36 +1,33 @@
 <!-- templates/dashboard.html -->
-{% extends 'layout.html' %}
-{% block title %}Dashboard{% endblock %}
-
+{% extends "layout.html" %}
 {% block content %}
-<div class="dashboard">
-  <h2 class="dashboard-title">Panel General SoyGeek 🤖</h2>
+<h1>Resumen General</h1>
 
-  <div class="dashboard-cards">
+<div class="dashboard-grid">
     <div class="card">
-      <h3>👥 Clientes</h3>
-      <p>{{ total_clientes }} registrados</p>
+        <h3>Clientes Totales</h3>
+        <p>{{ clientes_count }}</p>
     </div>
     <div class="card">
-      <h3>✅ Tareas Completadas</h3>
-      <p>{{ tareas_completadas }} tareas</p>
+        <h3>Tareas Pendientes</h3>
+        <p>{{ tareas_pendientes }}</p>
     </div>
-    <div class="card warning">
-      <h3>⏳ Tareas Pendientes</h3>
-      <p>{{ tareas_pendientes }} tareas</p>
+    <div class="card">
+        <h3>Tareas Completadas</h3>
+        <p>{{ tareas_completadas }}</p>
     </div>
-    <div class="card danger">
-      <h3>⚠️ Tareas Vencidas</h3>
-      <p>{{ tareas_vencidas }} urgentes</p>
+    <div class="card">
+        <h3>Tareas Vencidas</h3>
+        <p>{{ tareas_vencidas }}</p>
     </div>
-    <div class="card info">
-      <h3>🌐 Hosting por vencer</h3>
-      <p>{{ hostings_por_vencer }} servicios</p>
+    <div class="card">
+        <h3>Hostings por vencer</h3>
+        <p>{{ hostings_por_vencer }}</p>
     </div>
-    <div class="card success">
-      <h3>🤖 Bot Geek</h3>
-      <p>Estado: <strong>🟢 En línea</strong></p>
+    <div class="card">
+        <h3>Estado del Bot</h3>
+        <p>{{ estado_bot }}</p>
     </div>
-  </div>
 </div>
 {% endblock %}
+
