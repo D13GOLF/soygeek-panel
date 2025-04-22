@@ -155,4 +155,56 @@ body {
   font-size: 1.4rem;
   margin-bottom: 15px;
 }
+.consola-container {
+  background-color: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+#bot-input {
+  width: 80%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-right: 10px;
+  background: #0f172a;
+  color: #fff;
+}
+
+#bot-form button {
+  padding: 12px 20px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#bot-form button:hover {
+  background: #0ea5e9;
+}
+
+#bot-output {
+  margin-top: 20px;
+  background: #0f172a;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+  color: #cbd5e1;
+}
+
+.mensaje.usuario {
+  color: #38bdf8;
+  margin-bottom: 8px;
+}
+
+.mensaje.bot {
+  color: #10b981;
+  margin-bottom: 12px;
+}
 
