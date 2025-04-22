@@ -1,32 +1,51 @@
 <!-- templates/clientes.html -->
 {% extends 'layout.html' %}
-
 {% block content %}
 <h2>👥 Gestión de Clientes</h2>
-<p>Aquí aparecerán los datos de mis clientes.</p>
+<p>Administra la información de tus clientes.</p>
 
-<table class="table table-hover mt-4">
+<button class="agregar-btn" onclick="document.getElementById('modalCliente').style.display='block'">➕ Agregar Cliente</button>
+
+<table class="tabla-clientes mt-4">
   <thead>
     <tr>
       <th>Nombre</th>
       <th>Correo</th>
       <th>Teléfono</th>
-      <th>Última interacción</th>
+      <th>Hosting Vence</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
+    {% for cliente in clientes %}
     <tr>
-      <td>Juan Pérez</td>
-      <td>juan@example.com</td>
-      <td>+56 9 1234 5678</td>
-      <td>2025-04-21</td>
+      <td>{{ cliente['nombre'] }}</td>
+      <td>{{ cliente['correo'] }}</td>
+      <td>{{ cliente['telefono'] }}</td>
+      <td>{{ cliente['hosting_vencimiento'] or '—' }}</td>
+      <td>
+        <form method="POST" action="/clientes/eliminar/{{ cliente['id'] }}" style="display:inline;">
+          <button class="eliminar-btn" onclick="return confirm('¿Estás seguro de eliminar este cliente?')">🗑️</button>
+        </form>
+      </td>
     </tr>
-    <tr>
-      <td>Ana Rojas</td>
-      <td>ana@empresa.cl</td>
-      <td>+56 9 8765 4321</td>
-      <td>2025-04-18</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
+
+<!-- Modal Agregar Cliente -->
+<div id="modalCliente" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="document.getElementById('modalCliente').style.display='none'">&times;</span>
+    <h3>➕ Nuevo Cliente</h3>
+    <form method="POST" action="/clientes/agregar">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="email" name="correo" placeholder="Correo" required>
+      <input type="text" name="telefono" placeholder="Teléfono">
+      <input type="date" name="hosting_vencimiento" placeholder="Fecha de vencimiento de hosting">
+      <button type="submit">Agregar</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
+
