@@ -42,6 +42,50 @@
   <canvas id="graficoTareas" width="400" height="200"></canvas>
 </div>
 
+<div class="grafico-panel">
+  <h2 class="grafico-titulo">📊 Evolución de Tareas Completadas</h2>
+  <canvas id="graficoLineaTareas" width="500" height="200"></canvas>
+</div>
+
+<script>
+  const ctxLinea = document.getElementById('graficoLineaTareas').getContext('2d');
+  const graficoLinea = new Chart(ctxLinea, {
+    type: 'line',
+    data: {
+      labels: {{ meses_tareas | tojson }},
+      datasets: [{
+        label: 'Tareas Completadas',
+        data: {{ cantidades_tareas | tojson }},
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: '#fff' },
+          grid: { color: 'rgba(255, 255, 255, 0.1)' }
+        },
+        x: {
+          ticks: { color: '#fff' },
+          grid: { color: 'rgba(255, 255, 255, 0.1)' }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fff',
+            font: { size: 13 }
+          }
+        }
+      }
+    }
+  });
+</script>
+
 <!-- Gráfico de clientes por mes -->
 <div class="grafico-panel">
   <h3 style="text-align:center; color:#38bdf8;">📆 Clientes Registrados por Mes</h3>
