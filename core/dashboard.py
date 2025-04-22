@@ -81,24 +81,24 @@ def home():
 
 @dashboard_bp.route('/clientes')
 def clientes():
-    return render_template('dashboard/clientes.html', title="Gestión de Clientes")
+    return render_template('clientes.html', title="Gestión de Clientes")
 
 
 @dashboard_bp.route('/servicios')
 def servicios():
-    return render_template('dashboard/servicios.html', title="Hostings Contratados")
+    return render_template('servicios.html', title="Hostings Contratados")
 
 
 @dashboard_bp.route('/tareas')
 def tareas():
-    return render_template('dashboard/tareas.html', title="Gestión de Tareas")
+    return render_template('tareas.html', title="Gestión de Tareas")
 
 
 @dashboard_bp.route('/bot')
 def bot():
-    return render_template('dashboard/bot.html', title="Panel del Bot Geek")
+    return render_template('bot.html', title="Panel del Bot Geek")
 
 @dashboard_bp.route('/bot/consola')
 def consola_bot():
-    return render_template('dashboard/bot_console.html', title="Consola Bot Geek")
+    return render_template('bot_console.html', title="Consola Bot Geek")
 
