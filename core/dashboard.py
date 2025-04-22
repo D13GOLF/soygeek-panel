@@ -72,7 +72,7 @@ def home():
         hostings_por_vencer=hostings_por_vencer,
         estado_bot=estado_bot,
         meses=meses,
-        clientes_mes=clientes_mes
+        clientes_mes=clientes_mes,
         meses_tareas=meses_tareas,
         cantidades_tareas=cantidades_tareas,
 
