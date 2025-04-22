@@ -208,64 +208,75 @@ body {
   margin-bottom: 12px;
 }
 
-/* Widget del Bot Geek */
+/* --- BOT WIDGET ESTILO CONSOLA --- */
 .bot-widget {
   position: fixed;
   bottom: 80px;
   right: 30px;
-  width: 300px;
-  height: 400px;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid #38bdf8;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #38bdf8;
+  width: 320px;
+  max-height: 400px;
   display: none;
   flex-direction: column;
+  background: #111827;
+  color: #00ff9f;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #00ff9f;
+  border-radius: 10px;
   z-index: 9999;
+  box-shadow: 0 0 15px #00ff9f77;
 }
 
 .bot-header {
-  background: #1e293b;
-  color: #38bdf8;
+  background: #0f172a;
   padding: 10px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #00ff9f;
 }
 
 .bot-body {
-  flex: 1;
   padding: 10px;
   overflow-y: auto;
-  color: #e2e8f0;
+  flex-grow: 1;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .bot-input {
   display: flex;
   padding: 10px;
-  background: #0f172a;
+  border-top: 1px solid #00ff9f;
+  background-color: #0f172a;
 }
 
 .bot-input input {
   flex: 1;
   padding: 8px;
-  border: none;
-  border-radius: 6px;
-  background: #1e293b;
-  color: white;
+  background: #111827;
+  color: #00ff9f;
+  border: 1px solid #00ff9f;
+  font-family: 'Courier New', monospace;
+  border-radius: 4px;
+  margin-right: 8px;
 }
 
 .bot-input button {
-  margin-left: 5px;
-  padding: 8px 12px;
+  background: #00ff9f;
+  color: #111827;
   border: none;
-  background: #38bdf8;
-  color: black;
+  padding: 8px 10px;
   font-weight: bold;
-  border-radius: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bot-close {
+  background: none;
+  border: none;
+  color: #00ff9f;
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -273,24 +284,19 @@ body {
   position: fixed;
   bottom: 20px;
   right: 30px;
-  background: #38bdf8;
-  color: #0f172a;
+  background: #00ff9f;
+  color: #111827;
   border: none;
   padding: 10px 16px;
-  border-radius: 50px;
-  box-shadow: 0 0 15px #38bdf8;
-  cursor: pointer;
+  font-size: 14px;
   font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
   z-index: 9999;
+  box-shadow: 0 0 8px #00ff9f88;
 }
 
-.bot-close {
-  background: none;
-  border: none;
-  color: #38bdf8;
-  font-size: 16px;
-  cursor: pointer;
-}
+
 
 
 
