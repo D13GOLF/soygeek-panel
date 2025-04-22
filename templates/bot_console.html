@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>🤖 Consola de Comandos para Bot-Geek</h2>
+
+<div class="consola-container">
+    <form id="bot-form">
+        <input type="text" id="bot-input" placeholder="Escribe un comando o consulta...">
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="bot-output"></div>
+</div>
+
+<script>
+document.getElementById('bot-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const input = document.getElementById('bot-input');
+    const output = document.getElementById('bot-output');
+    const userInput = input.value.trim();
+
+    if (!userInput) return;
+
+    output.innerHTML += `<div class="mensaje usuario">🧑‍💻 ${userInput}</div>`;
+    input.value = "Pensando...";
+
+    const res = await fetch("/api/bot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensaje: userInput })
+    });
+
+    const data = await res.json();
+    input.value = "";
+    output.innerHTML += `<div class="mensaje bot">🤖 ${data.respuesta}</div>`;
+    output.scrollTop = output.scrollHeight;
+});
+</script>
+{% endblock %}
