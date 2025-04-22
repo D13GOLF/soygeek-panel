@@ -149,3 +149,10 @@ body {
   align-items: center;
   gap: 5px;
 }
+.grafico-titulo {
+  color: #38bdf8;
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
