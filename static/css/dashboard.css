@@ -84,11 +84,23 @@ body {
 }
 
 .card {
-  background-color: #1e293b;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.1);
   transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: aparecer 0.6s ease forwards;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card:hover {
@@ -108,7 +120,9 @@ body {
 }
 
 .grafico-panel {
-  background-color: #1f2937;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -116,3 +130,21 @@ body {
   margin: 30px auto;
 }
 
+/* Estado del Bot */
+.bot-activo {
+  color: #10ff75;
+  font-weight: bold;
+  font-size: 1.2em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bot-inactivo {
+  color: #ff4d4d;
+  font-weight: bold;
+  font-size: 1.2em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
