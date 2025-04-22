@@ -26,7 +26,13 @@
     </div>
     <div class="card">
         <h3>Estado del Bot</h3>
-        <p>{{ estado_bot }}</p>
+        <p>
+            {% if estado_bot == "Activo" %}
+                <span class="bot-activo">🟢 Activo</span>
+            {% else %}
+                <span class="bot-inactivo">🔴 Inactivo</span>
+            {% endif %}
+        </p>
     </div>
 </div>
 
