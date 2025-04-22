@@ -97,3 +97,8 @@ def tareas():
 @dashboard_bp.route('/bot')
 def bot():
     return render_template('dashboard/bot.html', title="Panel del Bot Geek")
+
+@dashboard_bp.route('/bot/consola')
+def consola_bot():
+    return render_template('dashboard/bot_console.html', title="Consola Bot Geek")
+
