@@ -119,6 +119,38 @@
     }
   });
 
+<script>
+  function toggleBot() {
+    const widget = document.getElementById("bot-widget");
+    widget.style.display = widget.style.display === "flex" ? "none" : "flex";
+  }
+
+  function enviarMensaje() {
+    const input = document.getElementById("bot-message");
+    const mensaje = input.value.trim();
+    if (!mensaje) return;
+
+    const chat = document.getElementById("bot-body");
+    chat.innerHTML += `<div><strong>Tú:</strong> ${mensaje}</div>`;
+    input.value = "";
+
+    fetch("/api/bot", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mensaje: mensaje })
+    })
+    .then(response => response.json())
+    .then(data => {
+      chat.innerHTML += `<div><strong>Bot:</strong> ${data.respuesta}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    })
+    .catch(error => {
+      chat.innerHTML += `<div><strong>Bot:</strong> Error al contactar al bot 🤖</div>`;
+    });
+  }
+</script>
+
+
   // Gráfico de clientes por mes 📈
   const ctxClientes = document.getElementById('graficoClientes').getContext('2d');
   const graficoClientes = new Chart(ctxClientes, {
