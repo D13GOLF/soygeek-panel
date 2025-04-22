@@ -49,6 +49,18 @@ def home():
 
         # Gráfico de clientes por mes
         meses, clientes_mes = obtener_clientes_por_mes()
+        # Consultar tareas completadas por mes (últimos 6)
+        tareas_completadas_mes = conn.execute("""
+            SELECT strftime('%Y-%m', fecha_vencimiento) AS mes, COUNT(*) as total
+            FROM tareas
+            WHERE estado = 'completada'
+            GROUP BY mes
+            ORDER BY mes ASC
+            LIMIT 6
+        """).fetchall()
+
+        meses_tareas = [row['mes'] for row in tareas_completadas_mes]
+        cantidades_tareas = [row['total'] for row in tareas_completadas_mes]
 
     return render_template(
         'dashboard.html',
@@ -61,6 +73,9 @@ def home():
         estado_bot=estado_bot,
         meses=meses,
         clientes_mes=clientes_mes
+        meses_tareas=meses_tareas,
+        cantidades_tareas=cantidades_tareas,
+
     )
 
 
