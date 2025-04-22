@@ -295,6 +295,93 @@ body {
   z-index: 9999;
   box-shadow: 0 0 8px #00ff9f88;
 }
+/* Gestión de clientes */
+.tabla-clientes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-clientes th, .tabla-clientes td {
+  padding: 12px;
+  text-align: left;
+  color: #e2e8f0;
+}
+
+.tabla-clientes thead {
+  background-color: #334155;
+}
+
+.tabla-clientes tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.agregar-btn {
+  background-color: #10b981;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.eliminar-btn {
+  background: none;
+  color: #f87171;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-contenido {
+  background-color: #1e293b;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  color: #e2e8f0;
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+
+.modal-contenido input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #0f172a;
+  border: 1px solid #38bdf8;
+  color: white;
+  border-radius: 6px;
+}
+
+.modal-contenido button {
+  background-color: #38bdf8;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cerrar {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 
 
