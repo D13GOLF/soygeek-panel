@@ -36,15 +36,22 @@
     </div>
 </div>
 
+<!-- Gráfico de tareas -->
 <div class="grafico-panel">
   <canvas id="graficoTareas" width="400" height="200"></canvas>
+</div>
+
+<!-- Gráfico de clientes por mes -->
+<div class="grafico-panel">
+  <h3 style="text-align:center; color:#38bdf8;">📆 Clientes Registrados por Mes</h3>
+  <canvas id="graficoClientes" width="400" height="200"></canvas>
 </div>
 
 <!-- ChartJS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const ctx = document.getElementById('graficoTareas').getContext('2d');
-  const graficoTareas = new Chart(ctx, {
+  const ctxTareas = document.getElementById('graficoTareas').getContext('2d');
+  const graficoTareas = new Chart(ctxTareas, {
     type: 'doughnut',
     data: {
       labels: ['Pendientes', 'Completadas'],
@@ -61,6 +68,40 @@
           labels: {
             color: '#fff',
             font: { size: 14 }
+          }
+        }
+      }
+    }
+  });
+
+  // Gráfico de clientes por mes 📈
+  const ctxClientes = document.getElementById('graficoClientes').getContext('2d');
+  const graficoClientes = new Chart(ctxClientes, {
+    type: 'bar',
+    data: {
+      labels: {{ meses|tojson }},
+      datasets: [{
+        label: 'Clientes Nuevos',
+        data: {{ clientes_mes|tojson }},
+        backgroundColor: '#3b82f6',
+        borderRadius: 6
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: { color: '#fff' },
+          beginAtZero: true
+        },
+        x: {
+          ticks: { color: '#fff' }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#38bdf8',
+            font: { weight: 'bold' }
           }
         }
       }
