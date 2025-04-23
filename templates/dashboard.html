@@ -185,11 +185,16 @@
     const chat = document.getElementById("bot-body");
     chat.innerHTML += `<div><strong>Tú:</strong> ${mensaje}</div>`;
     input.value = "";
-
-    fetch("/api/bot", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mensaje: mensaje })
+    
+    if (!localStorage.getItem("user_id")) {
+  localStorage.setItem("user_id", crypto.randomUUID());
+}
+    const user_id = localStorage.getItem("user_id");
+    
+fetch("/api/bot", {
+  method: "POST",
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ mensaje: mensaje, user_id: user_id })  // 👈 ¡Ahora enviamos el ID!
     })
     .then(response => response.json())
     .then(data => {
