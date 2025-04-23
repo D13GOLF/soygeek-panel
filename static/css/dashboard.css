@@ -382,6 +382,27 @@ body {
   font-size: 24px;
   cursor: pointer;
 }
+.clima-futurista {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 1px solid #38bdf8;
+  color: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #0ea5e9;
+  text-align: center;
+  animation: glow 3s infinite alternate;
+}
+
+.titulo-clima {
+  font-size: 1.4rem;
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 10px #0ea5e9; }
+  100% { box-shadow: 0 0 20px #38bdf8; }
+}
 
 
 
