@@ -214,6 +214,37 @@ fetch("/api/bot", {
       chat.innerHTML += `<div><strong>Bot:</strong> Error al contactar al bot 🤖</div>`;
     });
   }
+
+// Clima actual para El Monte
+async function cargarClima(ciudad = "El Monte,CL") {
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=TU_API_KEY&units=metric&lang=es`);
+  const data = await res.json();
+
+  if (!data.main) {
+    document.getElementById('weather-info').innerHTML = `<p>❌ No se pudo cargar el clima</p>`;
+    return;
+  }
+
+  const icon = data.weather[0].icon;
+  const temp = Math.round(data.main.temp);
+  const estado = data.weather[0].description;
+  const viento = Math.round(data.wind.speed * 3.6);
+  const humedad = data.main.humidity;
+
+  document.getElementById('weather-info').innerHTML = `
+    <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${estado}" style="margin: 0 auto; display: block;">
+    <p><strong>${data.name}</strong></p>
+    <p>${estado.charAt(0).toUpperCase() + estado.slice(1)}</p>
+    <p>🌡️ ${temp}°C</p>
+    <p>💨 Viento: ${viento} km/h</p>
+    <p>💧 Humedad: ${humedad}%</p>
+  `;
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  cargarClima();
+});
+
 </script>
 
 {% endblock %}
