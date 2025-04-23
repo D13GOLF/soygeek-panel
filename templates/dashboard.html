@@ -217,7 +217,7 @@ fetch("/api/bot", {
 
 // Clima actual para El Monte
 async function cargarClima(ciudad = "El Monte,CL") {
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=TU_API_KEY&units=metric&lang=es`);
+const res = await fetch(`/api/clima?ciudad=${encodeURIComponent(ciudad)}`);
   const data = await res.json();
 
   if (!data.main) {
