@@ -1,18 +1,20 @@
 # views.py
-import sqlite3
-from flask import jsonify
-from datetime import datetime
 import os
+import sqlite3
+import requests
+from flask import jsonify, request
+from datetime import datetime
 
 # Ruta segura a la base de datos
 DB_PATH = os.path.join(os.path.dirname(__file__), 'db', 'data.db')
 
+
+# 📊 Clientes registrados por mes (gráfico de barras)
 def clientes_por_mes():
     with sqlite3.connect(DB_PATH) as conn:
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
 
-        # Asegúrate de que la tabla tenga la columna fecha_registro
         cursor.execute("""
             SELECT 
                 strftime('%Y-%m', fecha_registro) as mes,
@@ -32,3 +34,17 @@ def clientes_por_mes():
         cantidades.append(fila["total"])
 
     return jsonify({"meses": meses, "cantidades": cantidades})
+
+
+# 🌤️ Clima actual desde OpenWeatherMap (usado en dashboard visual)
+def clima_actual():
+    ciudad = request.args.get("ciudad", "El Monte,CL")
+    api_key = os.getenv("OPENWEATHER_API_KEY")
+
+    try:
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={api_key}&units=metric&lang=es"
+        res = requests.get(url)
+        res.raise_for_status()
+        return jsonify(res.json())
+    except Exception as e:
+        return jsonify({"error": f"No se pudo obtener el clima: {str(e)}"}), 500
