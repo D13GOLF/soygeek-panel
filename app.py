@@ -3,40 +3,42 @@ from flask import Flask, request, jsonify
 from core.auth import auth_bp
 from core.dashboard import dashboard_bp
 from init_db import crear_tablas
-from views import clientes_por_mes  # ✅ Importamos la nueva vista API
+from views import clientes_por_mes, clima_actual  # ✅ Endpoints API externos
 import requests
 
-# Inicializar Flask app
+# Inicializar la aplicación Flask
 app = Flask(__name__)
 app.secret_key = 'clave-secreta-soygeek'
 app.config.from_pyfile('config.py')
 
-# Registrar Blueprints
+# 🔗 Registrar Blueprints (rutas del panel)
 app.register_blueprint(auth_bp)
 app.register_blueprint(dashboard_bp)
 
-# Registrar rutas API personalizadas
+# 📊 Rutas API personalizadas
 app.add_url_rule('/api/clientes-mes', 'clientes_por_mes', clientes_por_mes)
+app.add_url_rule('/api/clima', 'clima_actual', clima_actual)
 
-# Crear las tablas si no existen
+# 🧱 Crear tablas si no existen
 crear_tablas()
 
-# Endpoint para interactuar con el bot (usado por la consola del panel)
+# 🤖 Endpoint para interactuar con Bot-Geek desde frontend
 @app.route('/api/bot', methods=['POST'])
 def api_bot():
     data = request.get_json()
     mensaje = data.get('mensaje')
+    user_id = data.get('user_id', 'web')  # Incluye ID si se usa para validación futura
 
     try:
         respuesta = requests.post(
-            "https://bot-geek-v1.onrender.com/api/consultar",  # Cambia si usas otra URL
-            json={"message": mensaje}
+            "https://bot-geek-v1.onrender.com/api/consultar",
+            json={"message": mensaje, "user_id": user_id}
         )
         data = respuesta.json()
         return jsonify({"respuesta": data.get("respuesta", "Sin respuesta 🤖")})
     except Exception as e:
-        return jsonify({"respuesta": f"Error al contactar al bot: {str(e)}"})
+        return jsonify({"respuesta": f"Error al contactar al bot: {str(e)}"}), 500
 
-# Solo se usa si ejecutas localmente con python app.py
+# Solo para desarrollo local
 if __name__ == '__main__':
     app.run(debug=True)
