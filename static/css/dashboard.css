@@ -383,8 +383,8 @@ body {
   cursor: pointer;
 }
 
-/* 🌤️ Clima Futurista Integrado */
-.card.clima-futurista {
+/* 🌤️ Clima Futurista 100% visible y animada */
+.clima-futurista {
   background: linear-gradient(135deg, rgba(0, 200, 255, 0.15), rgba(0, 100, 200, 0.25));
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #ffffff;
@@ -395,22 +395,33 @@ body {
   padding: 20px;
   border-radius: 12px;
   transition: all 0.3s ease-in-out;
+
+  /* ✅ Forzamos visibilidad (evita conflictos con .card) */
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-.card.clima-futurista img {
+.clima-futurista img {
   width: 80px;
   height: 80px;
   margin: 0 auto 10px;
 }
 
-.card.clima-futurista p {
+.clima-futurista p {
   font-size: 15px;
   margin: 4px 0;
   color: #f1f5f9;
 }
 
-.card.clima-futurista h3 {
+.clima-futurista h3 {
   font-size: 18px;
   color: #38bdf8;
   margin-bottom: 10px;
 }
+
+/* 💫 Animación suave de pulso */
+@keyframes pulso {
+  0% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
+  100% { box-shadow: 0 0 20px rgba(0,255,255,0.5); }
+}
+
