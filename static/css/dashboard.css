@@ -9,6 +9,8 @@ body {
 .dashboard-container {
   display: flex;
   height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* Sidebar */
@@ -424,4 +426,15 @@ body {
   0% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
   100% { box-shadow: 0 0 20px rgba(0,255,255,0.5); }
 }
+/* Fondo de partículas (estilo JARVIS) */
+#particles-js {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
 
