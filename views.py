@@ -41,10 +41,13 @@ def clima_actual():
     ciudad = request.args.get("ciudad", "El Monte,CL")
     api_key = os.getenv("OPENWEATHER_API_KEY")
 
+    if not api_key:
+        return jsonify({"error": "API key no configurada"}), 500
+
     try:
         url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={api_key}&units=metric&lang=es"
         res = requests.get(url)
         res.raise_for_status()
         return jsonify(res.json())
-    except Exception as e:
+    except requests.exceptions.RequestException as e:
         return jsonify({"error": f"No se pudo obtener el clima: {str(e)}"}), 500
