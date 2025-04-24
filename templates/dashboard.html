@@ -3,9 +3,10 @@
 {% block content %}
 <h1>Resumen General</h1>
 
+<!-- GRID PRINCIPAL -->
 <div class="dashboard-grid">
 
-  <!-- Tarjeta de Clima Animada -->
+  <!-- Tarjeta de Clima Futurista -->
   <div class="card clima-futurista">
     <h3 class="titulo-clima">🌤️ Clima Actual</h3>
     <div id="weather-info" class="contenido-clima">
@@ -13,38 +14,42 @@
     </div>
   </div>
 
-  <!-- Tarjetas de resumen -->
+  <!-- Tarjetas de métricas -->
   <div class="card">
-      <h3>Clientes Totales</h3>
-      <p>{{ clientes_count }}</p>
+    <h3>Clientes Totales</h3>
+    <p>{{ clientes_count }}</p>
   </div>
   <div class="card">
-      <h3>Tareas Pendientes</h3>
-      <p>{{ tareas_pendientes }}</p>
+    <h3>Tareas Pendientes</h3>
+    <p>{{ tareas_pendientes }}</p>
   </div>
   <div class="card">
-      <h3>Tareas Completadas</h3>
-      <p>{{ tareas_completadas }}</p>
+    <h3>Tareas Completadas</h3>
+    <p>{{ tareas_completadas }}</p>
   </div>
   <div class="card">
-      <h3>Tareas Vencidas</h3>
-      <p>{{ tareas_vencidas }}</p>
+    <h3>Tareas Vencidas</h3>
+    <p>{{ tareas_vencidas }}</p>
   </div>
   <div class="card">
-      <h3>Hostings por vencer</h3>
-      <p>{{ hostings_por_vencer }}</p>
+    <h3>Hostings por vencer</h3>
+    <p>{{ hostings_por_vencer }}</p>
   </div>
   <div class="card">
-      <h3>Estado del Bot</h3>
-      <p>
-          {% if estado_bot == "Activo" %}
-              <span class="bot-activo">🟢 Activo</span>
-          {% else %}
-              <span class="bot-inactivo">🔴 Inactivo</span>
-          {% endif %}
-      </p>
+    <h3>Estado del Bot</h3>
+    <p>
+      {% if estado_bot == "Activo" %}
+      <span class="bot-activo">🟢 Activo</span>
+      {% else %}
+      <span class="bot-inactivo">🔴 Inactivo</span>
+      {% endif %}
+    </p>
   </div>
+
 </div>
+
+<!-- Resto del contenido permanece igual... -->
+
 
 <!-- Gráfico de tareas -->
 <div class="grafico-panel">
