@@ -382,29 +382,40 @@ body {
   font-size: 24px;
   cursor: pointer;
 }
-.clima-futurista {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  border: 1px solid #38bdf8;
-  color: #f8fafc;
+
+/* 🌤️ Clima Futurista Integrado */
+.card.clima-futurista {
+  background: linear-gradient(135deg, rgba(0, 200, 255, 0.15), rgba(0, 100, 200, 0.25));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  animation: pulso 6s infinite alternate;
+  backdrop-filter: blur(8px);
+  text-align: center;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 0 15px #0ea5e9;
-  text-align: center;
-  animation: glow 3s infinite alternate;
+  transition: all 0.3s ease-in-out;
 }
 
-.titulo-clima {
-  font-size: 1.4rem;
+.card.clima-futurista img {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+}
+
+.card.clima-futurista p {
+  font-size: 15px;
+  margin: 4px 0;
+  color: #f1f5f9;
+}
+
+.card.clima-futurista h3 {
+  font-size: 18px;
   color: #38bdf8;
   margin-bottom: 10px;
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 0 10px #0ea5e9; }
-  100% { box-shadow: 0 0 20px #38bdf8; }
+@keyframes pulso {
+  0% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
+  100% { box-shadow: 0 0 20px rgba(0,255,255,0.5); }
 }
-
-
-
-
-
