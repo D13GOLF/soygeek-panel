@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block content %}
 <h1>Resumen General</h1>
 
@@ -66,33 +67,38 @@
 
 {% block scripts %}
 <script>
-  // Clima actual para El Monte
+  // 🌤️ Cargar clima desde API
   async function cargarClima(ciudad = "El Monte,CL") {
-    const res = await fetch(`/api/clima?ciudad=${encodeURIComponent(ciudad)}`);
-    const data = await res.json();
+    try {
+      const res = await fetch(`/api/clima?ciudad=${encodeURIComponent(ciudad)}`);
+      const data = await res.json();
 
-    if (!data.main) {
-      document.getElementById('weather-info').innerHTML = `<p>❌ No se pudo cargar el clima</p>`;
-      return;
+      if (!data.main) {
+        document.getElementById('weather-info').innerHTML = `<p>❌ No se pudo cargar el clima</p>`;
+        return;
+      }
+
+      const icon = data.weather[0].icon;
+      const temp = Math.round(data.main.temp);
+      const estado = data.weather[0].description;
+      const viento = Math.round(data.wind.speed * 3.6);
+      const humedad = data.main.humidity;
+
+      document.getElementById('weather-info').innerHTML = `
+        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${estado}" style="margin: 0 auto; display: block;">
+        <p><strong>${data.name}</strong></p>
+        <p>${estado.charAt(0).toUpperCase() + estado.slice(1)}</p>
+        <p>🌡️ ${temp}°C</p>
+        <p>💨 Viento: ${viento} km/h</p>
+        <p>💧 Humedad: ${humedad}%</p>
+      `;
+    } catch (error) {
+      console.error("Error al cargar clima:", error);
+      document.getElementById('weather-info').innerHTML = `<p>⚠️ Error cargando clima</p>`;
     }
-
-    const icon = data.weather[0].icon;
-    const temp = Math.round(data.main.temp);
-    const estado = data.weather[0].description;
-    const viento = Math.round(data.wind.speed * 3.6);
-    const humedad = data.main.humidity;
-
-    document.getElementById('weather-info').innerHTML = `
-      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${estado}" style="margin: 0 auto; display: block;">
-      <p><strong>${data.name}</strong></p>
-      <p>${estado.charAt(0).toUpperCase() + estado.slice(1)}</p>
-      <p>🌡️ ${temp}°C</p>
-      <p>💨 Viento: ${viento} km/h</p>
-      <p>💧 Humedad: ${humedad}%</p>
-    `;
   }
 
-  // Widget Bot
+  // 🤖 Bot Geek
   function toggleBot() {
     const widget = document.getElementById("bot-widget");
     widget.style.display = widget.style.display === "flex" ? "none" : "flex";
@@ -128,7 +134,10 @@
     });
   }
 
-    // Gráfico tareas pendientes/completadas
+  // 📈 Gráficos y clima al cargar
+  window.addEventListener("DOMContentLoaded", () => {
+    cargarClima();
+
     new Chart(document.getElementById('graficoTareas'), {
       type: 'doughnut',
       data: {
@@ -144,7 +153,6 @@
       }
     });
 
-    // Línea de tareas completadas
     new Chart(document.getElementById('graficoLineaTareas'), {
       type: 'line',
       data: {
@@ -167,7 +175,6 @@
       }
     });
 
-    // Clientes nuevos
     new Chart(document.getElementById('graficoClientes'), {
       type: 'bar',
       data: {
@@ -192,10 +199,5 @@
       }
     });
   });
-<script>
-window.addEventListener("DOMContentLoaded", () => {
-  cargarClima(); // <- esta función debe estar declarada antes de esta línea
-});
 </script>
-
 {% endblock %}
