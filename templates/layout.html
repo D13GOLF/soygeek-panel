@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>{{ title or "SoyGeek Panel" }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- Estilos del Dashboard -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <!-- Chart.js (solo una vez) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -24,7 +26,7 @@
         </nav>
     </aside>
 
-    <!-- Main content -->
+    <!-- Main Content -->
     <main class="main">
         <header class="topbar">
             <div class="topbar-title">{{ title or "SoyGeek Panel" }}</div>
@@ -36,6 +38,9 @@
         </section>
     </main>
 </div>
+
+<!-- Bloque para scripts adicionales (como clima, widgets, etc.) -->
+{% block scripts %}{% endblock %}
 
 </body>
 </html>
