@@ -4,45 +4,46 @@
 <h1>Resumen General</h1>
 
 <div class="dashboard-grid">
-  
-<!-- NUEVO: Tarjeta de clima -->
-<div class="card clima-futurista">
-  <h3 class="titulo-clima">🌤️ Clima Actual</h3>
-  <div id="weather-info" class="contenido-clima">
-    <p>Cargando clima...</p>
+
+  <!-- Tarjeta de Clima Animada -->
+  <div class="card clima-futurista">
+    <h3 class="titulo-clima">🌤️ Clima Actual</h3>
+    <div id="weather-info" class="contenido-clima">
+      <p>Cargando clima...</p>
+    </div>
   </div>
-</div>
-  <!-- Otras Tarjetas del Dashboard -->
-    <div class="card">
-        <h3>Clientes Totales</h3>
-        <p>{{ clientes_count }}</p>
-    </div>
-    <div class="card">
-        <h3>Tareas Pendientes</h3>
-        <p>{{ tareas_pendientes }}</p>
-    </div>
-    <div class="card">
-        <h3>Tareas Completadas</h3>
-        <p>{{ tareas_completadas }}</p>
-    </div>
-    <div class="card">
-        <h3>Tareas Vencidas</h3>
-        <p>{{ tareas_vencidas }}</p>
-    </div>
-    <div class="card">
-        <h3>Hostings por vencer</h3>
-        <p>{{ hostings_por_vencer }}</p>
-    </div>
-    <div class="card">
-        <h3>Estado del Bot</h3>
-        <p>
-            {% if estado_bot == "Activo" %}
-                <span class="bot-activo">🟢 Activo</span>
-            {% else %}
-                <span class="bot-inactivo">🔴 Inactivo</span>
-            {% endif %}
-        </p>
-    </div>
+
+  <!-- Tarjetas de resumen -->
+  <div class="card">
+      <h3>Clientes Totales</h3>
+      <p>{{ clientes_count }}</p>
+  </div>
+  <div class="card">
+      <h3>Tareas Pendientes</h3>
+      <p>{{ tareas_pendientes }}</p>
+  </div>
+  <div class="card">
+      <h3>Tareas Completadas</h3>
+      <p>{{ tareas_completadas }}</p>
+  </div>
+  <div class="card">
+      <h3>Tareas Vencidas</h3>
+      <p>{{ tareas_vencidas }}</p>
+  </div>
+  <div class="card">
+      <h3>Hostings por vencer</h3>
+      <p>{{ hostings_por_vencer }}</p>
+  </div>
+  <div class="card">
+      <h3>Estado del Bot</h3>
+      <p>
+          {% if estado_bot == "Activo" %}
+              <span class="bot-activo">🟢 Activo</span>
+          {% else %}
+              <span class="bot-inactivo">🔴 Inactivo</span>
+          {% endif %}
+      </p>
+  </div>
 </div>
 
 <!-- Gráfico de tareas -->
