@@ -8,16 +8,31 @@
     <!-- Estilos del Dashboard -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 
-    <!-- Chart.js (solo una vez) -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!-- tsParticles - Fondo animado -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
+    <!-- 🎨 Fondo animado estilo J.A.R.V.I.S -->
+    <style>
+      #particles-js {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        background: transparent;
+      }
+      .dashboard-container {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
 </head>
 <body>
-    
-<!-- Fondo animado de partículas -->
+
+<!-- Fondo animado -->
 <div id="particles-js"></div>
 
 <div class="dashboard-container">
@@ -33,7 +48,7 @@
         </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Contenido principal -->
     <main class="main">
         <header class="topbar">
             <div class="topbar-title">{{ title or "SoyGeek Panel" }}</div>
@@ -46,8 +61,46 @@
     </main>
 </div>
 
-<!-- Bloque para scripts adicionales (como clima, widgets, etc.) -->
+<!-- Bloque para scripts personalizados (clima, widgets, etc) -->
 {% block scripts %}{% endblock %}
+
+<!-- Inicializar partículas -->
+<script>
+  tsParticles.load("particles-js", {
+    fullScreen: { enable: false },
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    particles: {
+      color: { value: "#38bdf8" },
+      links: {
+        enable: true,
+        color: "#38bdf8",
+        distance: 120,
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 1.2,
+        direction: "none",
+        outModes: "bounce"
+      },
+      number: { value: 40 },
+      opacity: { value: 0.5 },
+      shape: { type: "circle" },
+      size: { value: { min: 1, max: 4 } }
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" }
+      },
+      modes: {
+        repulse: { distance: 100 }
+      }
+    },
+    detectRetina: true
+  });
+</script>
 
 </body>
 </html>
