@@ -128,10 +128,6 @@
     });
   }
 
-  // Inicializar clima y gráficos al cargar
-  window.addEventListener("DOMContentLoaded", () => {
-    cargarClima();
-
     // Gráfico tareas pendientes/completadas
     new Chart(document.getElementById('graficoTareas'), {
       type: 'doughnut',
@@ -196,5 +192,10 @@
       }
     });
   });
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  cargarClima(); // <- esta función debe estar declarada antes de esta línea
+});
 </script>
+
 {% endblock %}
