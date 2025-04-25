@@ -23,6 +23,7 @@ app.register_blueprint(dashboard_bp)
 # 📊 Rutas API personalizadas
 app.add_url_rule('/api/clientes-mes', 'clientes_por_mes', clientes_por_mes)
 app.add_url_rule('/api/clima', 'clima_actual', clima_actual)
+app.add_url_rule('/api/tareas-urgentes', 'tareas_urgentes', tareas_urgentes)
 
 # ✅ Endpoints de tareas
 app.add_url_rule('/api/tareas', 'agregar_tarea', agregar_tarea, methods=['POST'])
