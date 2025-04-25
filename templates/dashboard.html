@@ -84,6 +84,8 @@ function ejecutarComando() {
   const comando = input.value.trim().toLowerCase();
   input.value = "";
 
+  if (!comando) return;
+
   if (comando.startsWith("crear nota")) {
     const contenido = comando.replace("crear nota", "").trim();
     if (contenido) {
@@ -91,7 +93,7 @@ function ejecutarComando() {
       localStorage.setItem("notasJarvis", JSON.stringify(notasJarvis));
       mostrarMensaje("✅ Nota guardada: " + contenido);
     } else {
-      mostrarMensaje("⚠️ Debes escribir contenido para la nota.");
+      mostrarMensaje("⚠️ Escribe el contenido de la nota.");
     }
 
   } else if (comando === "ver notas") {
@@ -117,7 +119,23 @@ function ejecutarComando() {
     mostrarMensaje("❌ Comando no reconocido.");
   }
 }
+
+// Abrir/cerrar consola con botón
+document.getElementById("toggle-console").addEventListener("click", () => {
+  const consola = document.getElementById("console-jarvis");
+  consola.style.display = consola.style.display === "none" ? "block" : "none";
+});
+
+// Enter para ejecutar comando
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("console-command").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      ejecutarComando();
+    }
+  });
+});
 </script>
+
 
 <script>
   function abrirAsistente() {
