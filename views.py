@@ -94,4 +94,33 @@ def tareas_urgentes():
         """)
         tareas = [dict(row) for row in cursor.fetchall()]
     return jsonify(tareas)
+    
+# 🔥 Endpoint: Tareas urgentes desde la base de datos
+def tareas_urgentes():
+    from datetime import datetime
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT id, titulo, descripcion, fecha_vencimiento
+            FROM tareas
+            WHERE estado = 'pendiente'
+              AND fecha_vencimiento <= date('now', '+5 days')
+            ORDER BY fecha_vencimiento ASC
+            LIMIT 5
+        """)
+        resultados = cursor.fetchall()
+
+    tareas = []
+    for fila in resultados:
+        tareas.append({
+            "id": fila["id"],
+            "titulo": fila["titulo"],
+            "descripcion": fila["descripcion"],
+            "fecha_vencimiento": fila["fecha_vencimiento"]
+        })
+
+    return jsonify(tareas)
+
 
