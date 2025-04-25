@@ -508,4 +508,45 @@ body {
   background: transparent;
   pointer-events: none;
 }
+.bot-holograma {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: 180px;
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  text-align: center;
+  z-index: 9998;
+  animation: hologramaFlotar 4s ease-in-out infinite alternate;
+}
+
+.bot-holograma img {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 0 6px #38bdf8);
+  animation: latido 2.5s infinite ease-in-out;
+}
+
+.estado-texto {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #38bdf8;
+  text-shadow: 0 0 4px #38bdf8;
+}
+
+@keyframes hologramaFlotar {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(8px); }
+}
+
+@keyframes latido {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
 
