@@ -487,3 +487,50 @@ body {
   font-size: 18px;
   cursor: pointer;
 }
+/* 💻 Consola flotante estilo JARVIS */
+.console-jarvis {
+  position: fixed;
+  bottom: 20px;
+  left: 30px;
+  width: 360px;
+  background: rgba(0, 50, 100, 0.15);
+  border: 1px solid #38bdf8;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+  font-family: 'Courier New', monospace;
+  z-index: 9999;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.console-header {
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 8px 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #38bdf8;
+}
+
+.console-body {
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+  color: #e0f2fe;
+}
+
+.console-input {
+  border-top: 1px solid #38bdf8;
+  padding: 8px;
+  background-color: #0f172a;
+}
+
+.console-input input {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #38bdf8;
+  background: #1e293b;
+  color: #38bdf8;
+}
+
