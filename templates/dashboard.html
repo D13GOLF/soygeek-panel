@@ -54,6 +54,20 @@
   <h3 style="text-align:center; color:#38bdf8;">📆 Clientes Registrados por Mes</h3>
   <canvas id="graficoClientes"></canvas>
 </div>
+<!-- 🧠 Consola Holográfica Flotante -->
+<div id="asistente-consola" class="asistente-consola">
+  <div class="asistente-header">🧠 Vegeta AI
+    <button class="asistente-cerrar" onclick="cerrarAsistente()">✖</button>
+  </div>
+  <div class="asistente-body" id="asistente-body"></div>
+  <div class="asistente-input">
+    <input type="text" id="asistente-comando" placeholder="¿Qué deseas, Kakarotto?" onkeypress="if(event.key==='Enter'){enviarComando()}">
+    <button onclick="enviarComando()">Enviar</button>
+  </div>
+</div>
+<!-- Botón para abrir -->
+<button class="asistente-toggle" onclick="abrirAsistente()">🧠 Asistente Vegeta</button>
+
 <!-- 💬 Bot Widget -->
 <div id="bot-widget" class="bot-widget">
   <div class="bot-header">🤖 Bot Geek
