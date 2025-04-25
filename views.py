@@ -78,3 +78,20 @@ def listar_tareas():
         cursor.execute("SELECT * FROM tareas ORDER BY fecha_creacion DESC")
         tareas = [dict(row) for row in cursor.fetchall()]
     return jsonify(tareas)
+    
+# 🔔 Tareas urgentes para mostrar en el dashboard
+def tareas_urgentes():
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT id, titulo, fecha_vencimiento, estado
+            FROM tareas
+            WHERE estado = 'pendiente'
+            ORDER BY fecha_vencimiento ASC
+            LIMIT 3
+        """)
+        tareas = [dict(row) for row in cursor.fetchall()]
+    return jsonify(tareas)
+
