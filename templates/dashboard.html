@@ -9,24 +9,14 @@
       <p>Cargando clima...</p>
     </div>
   </div>
-<!-- Panel Holográfico del Bot Vegeta -->
-<div class="bot-holograma">
-  {% if estado_bot == "Activo" %}
-    <img src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Bot Activo">
-  {% elif estado_bot == "Pensando" %}
-    <img src="{{ url_for('static', filename='img/bot_vegeta_pensando.png') }}" alt="Bot Pensando">
-  {% else %}
-    <img src="{{ url_for('static', filename='img/bot_vegeta_inactivo.png') }}" alt="Bot Inactivo">
-  {% endif %}
-  <p class="estado-texto">
-    {% if estado_bot == "Activo" %}
-      🟢 Bot Operativo
-    {% elif estado_bot == "Pensando" %}
-      🧠 Procesando orden...
-    {% else %}
-      🔴 Bot Apagado
-    {% endif %}
-  </p>
+<!-- 🔔 Notificaciones Inteligentes -->
+<div class="card notificaciones-widget">
+  <h3 class="titulo-clima">🔔 Notificaciones</h3>
+  <ul class="notificaciones-lista">
+    <li>📨 Tienes 2 correos pendientes</li>
+    <li>⏳ 1 hosting vence en 5 días</li>
+    <li>👥 3 clientes nuevos esta semana</li>
+  </ul>
 </div>
   <!-- 🤖 Tarjeta Estado del Bot -->
   <div class="card bot-vegeta">
