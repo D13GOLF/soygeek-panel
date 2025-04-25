@@ -58,19 +58,6 @@
 <!-- Botón para abrir -->
 <button class="asistente-toggle" onclick="abrirAsistente()">🧠 Asistente Vegeta</button>
 
-<!-- 💬 Bot Widget -->
-<div id="bot-widget" class="bot-widget">
-  <div class="bot-header">🤖 Bot Geek
-    <button onclick="toggleBot()" class="bot-close">✖</button>
-  </div>
-  <div class="bot-body" id="bot-body"></div>
-  <div class="bot-input">
-    <input type="text" id="bot-message" placeholder="Escribe un comando..." onkeypress="if(event.key==='Enter'){enviarMensaje()}">
-    <button onclick="enviarMensaje()">Enviar</button>
-  </div>
-</div>
-<!-- Botón flotante -->
-<button class="bot-toggle" onclick="toggleBot()">💬 Bot Geek</button>
 {% endblock %}
 {% block scripts %}
 <script>
