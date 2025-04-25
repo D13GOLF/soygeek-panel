@@ -70,6 +70,55 @@
 {% endblock %}
 {% block scripts %}
 <script>
+let notasJarvis = JSON.parse(localStorage.getItem("notasJarvis") || "[]");
+
+function mostrarMensaje(msg, tipo = "normal") {
+  const consola = document.getElementById("console-output");
+  consola.innerHTML += `<div class="${tipo}">> ${msg}</div>`;
+  consola.scrollTop = consola.scrollHeight;
+}
+
+function ejecutarComando() {
+  const input = document.getElementById("console-command");
+  const comando = input.value.trim().toLowerCase();
+  input.value = "";
+
+  if (comando.startsWith("crear nota")) {
+    const contenido = comando.replace("crear nota", "").trim();
+    if (contenido) {
+      notasJarvis.push(contenido);
+      localStorage.setItem("notasJarvis", JSON.stringify(notasJarvis));
+      mostrarMensaje("✅ Nota guardada: " + contenido);
+    } else {
+      mostrarMensaje("⚠️ Debes escribir contenido para la nota.");
+    }
+
+  } else if (comando === "ver notas") {
+    if (notasJarvis.length === 0) {
+      mostrarMensaje("📭 No hay notas guardadas.");
+    } else {
+      notasJarvis.forEach((n, i) => {
+        mostrarMensaje(`${i + 1}. ${n}`);
+      });
+    }
+
+  } else if (comando.startsWith("eliminar nota")) {
+    const index = parseInt(comando.replace("eliminar nota", "").trim()) - 1;
+    if (!isNaN(index) && notasJarvis[index]) {
+      const eliminada = notasJarvis.splice(index, 1);
+      localStorage.setItem("notasJarvis", JSON.stringify(notasJarvis));
+      mostrarMensaje("🗑️ Nota eliminada: " + eliminada);
+    } else {
+      mostrarMensaje("⚠️ Índice inválido.");
+    }
+
+  } else {
+    mostrarMensaje("❌ Comando no reconocido.");
+  }
+}
+</script>
+
+<script>
   function abrirAsistente() {
     document.getElementById("asistente-consola").style.display = "flex";
   }
