@@ -8,7 +8,7 @@ def crear_tablas():
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
 
-        # Tabla clientes
+        # 🧍 Tabla de clientes
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS clientes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,14 +19,14 @@ def crear_tablas():
             )
         ''')
 
-        # Verificar si la columna 'fecha_registro' existe
+        # 📅 Agregar columna de fecha_registro si no existe
         cursor.execute("PRAGMA table_info(clientes)")
         columnas_clientes = [col[1] for col in cursor.fetchall()]
         if 'fecha_registro' not in columnas_clientes:
             cursor.execute("ALTER TABLE clientes ADD COLUMN fecha_registro TEXT DEFAULT (date('now'))")
             print("✅ Columna 'fecha_registro' agregada a la tabla 'clientes'.")
 
-        # Tabla tareas básica
+        # ✅ Tabla de tareas
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS tareas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,16 +34,11 @@ def crear_tablas():
                 descripcion TEXT,
                 cliente_id INTEGER,
                 fecha_vencimiento DATE,
+                estado TEXT DEFAULT 'pendiente',
+                fecha_creacion TEXT DEFAULT (datetime('now')),
                 FOREIGN KEY (cliente_id) REFERENCES clientes (id)
             )
         ''')
-
-        # Verificar si la columna 'estado' existe en tareas
-        cursor.execute("PRAGMA table_info(tareas)")
-        columnas_tareas = [col[1] for col in cursor.fetchall()]
-        if 'estado' not in columnas_tareas:
-            cursor.execute("ALTER TABLE tareas ADD COLUMN estado TEXT DEFAULT 'pendiente'")
-            print("✅ Columna 'estado' agregada a la tabla 'tareas'.")
 
         print("✅ Tablas creadas o actualizadas correctamente.")
 
