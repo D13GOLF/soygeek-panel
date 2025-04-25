@@ -5,27 +5,31 @@
     <title>{{ title or "SoyGeek Panel" }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Estilos del Dashboard -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <!-- Tipografía futurista estilo HUD -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Estilos del Dashboard -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- tsParticles - Fondo animado -->
+    <!-- tsParticles (fondo animado) -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
-    <!-- 🎨 Fondo animado estilo J.A.R.V.I.S -->
+    <!-- Estilos internos para partículas -->
     <style>
       #particles-js {
         position: fixed;
-        top: 0; left: 0;
+        top: 0;
+        left: 0;
         width: 100vw;
         height: 100vh;
         z-index: 0;
         background: transparent;
+        pointer-events: none;
       }
+
       .dashboard-container {
         position: relative;
         z-index: 1;
@@ -34,11 +38,13 @@
 </head>
 <body>
 
-<!-- Fondo animado -->
+<!-- 🎆 Fondo estilo JARVIS -->
 <div id="particles-js"></div>
 
+<!-- 🌐 Contenedor principal -->
 <div class="dashboard-container">
-    <!-- Sidebar -->
+
+    <!-- Sidebar lateral -->
     <aside class="sidebar">
         <div class="logo">⚙️ SoyGeek</div>
         <nav class="nav">
@@ -63,10 +69,10 @@
     </main>
 </div>
 
-<!-- Bloque para scripts personalizados (clima, widgets, etc) -->
+<!-- Scripts adicionales por bloque -->
 {% block scripts %}{% endblock %}
 
-<!-- Inicializar partículas -->
+<!-- Inicialización del fondo de partículas -->
 <script>
   tsParticles.load("particles-js", {
     fullScreen: { enable: false },
