@@ -28,16 +28,11 @@
     {% endif %}
   </p>
 </div>
-<!-- 🔔 Notificaciones Inteligentes -->
-<div class="card notificaciones-widget">
-  <h3 class="titulo-clima">🔔 Notificaciones</h3>
-  <ul class="notificaciones-lista">
-    <li>📨 Tienes 2 correos pendientes</li>
-    <li>⏳ 1 hosting vence en 5 días</li>
-    <li>👥 3 clientes nuevos esta semana</li>
-  </ul>
-</div>
-
+  <!-- 🤖 Tarjeta Estado del Bot -->
+  <div class="card bot-vegeta">
+    <h3 class="titulo-clima">🤖 Estado del Bot</h3>
+    <img id="img-bot-estado" src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Estado del Bot">
+    <p id="label-bot-estado">🟢 Activo</p>
   </div>
   <!-- 📊 Métricas -->
   <div class="card"><h3>Clientes Totales</h3><p>{{ clientes_count }}</p></div>
@@ -72,6 +67,20 @@
 </div>
 <!-- Botón para abrir -->
 <button class="asistente-toggle" onclick="abrirAsistente()">🧠 Asistente Vegeta</button>
+
+<!-- 💬 Bot Widget -->
+<div id="bot-widget" class="bot-widget">
+  <div class="bot-header">🤖 Bot Geek
+    <button onclick="toggleBot()" class="bot-close">✖</button>
+  </div>
+  <div class="bot-body" id="bot-body"></div>
+  <div class="bot-input">
+    <input type="text" id="bot-message" placeholder="Escribe un comando..." onkeypress="if(event.key==='Enter'){enviarMensaje()}">
+    <button onclick="enviarMensaje()">Enviar</button>
+  </div>
+</div>
+<!-- Botón flotante -->
+<button class="bot-toggle" onclick="toggleBot()">💬 Bot Geek</button>
 {% endblock %}
 {% block scripts %}
 <script>
@@ -179,6 +188,11 @@
     }
   }
   // 🧠 Lógica bot
+  function toggleBot() {
+    const widget = document.getElementById("bot-widget");
+    widget.style.display = widget.style.display === "flex" ? "none" : "flex";
+  }
+
   function enviarMensaje() {
     const input = document.getElementById("bot-message");
     const mensaje = input.value.trim();
