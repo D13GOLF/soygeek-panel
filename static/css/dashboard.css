@@ -550,3 +550,28 @@ body {
   z-index: 9999;
   box-shadow: 0 0 12px #38bdf8aa;
 }
+/* Tareas Urgentes */
+.tareas-urgentes {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 30px auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.lista-tareas li {
+  background: rgba(255, 255, 255, 0.05);
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  border-left: 4px solid #f87171;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
