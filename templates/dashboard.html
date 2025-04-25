@@ -12,11 +12,11 @@
 <!-- Panel Holográfico del Bot Vegeta -->
 <div class="bot-holograma">
   {% if estado_bot == "Activo" %}
-    <img src="{{ url_for('static', filename='img/bot_vegeta-activo.png') }}" alt="Bot Activo">
+    <img src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Bot Activo">
   {% elif estado_bot == "Pensando" %}
     <img src="{{ url_for('static', filename='img/bot_vegeta_pensando.png') }}" alt="Bot Pensando">
   {% else %}
-    <img src="{{ url_for('static', filename='img/bot_vegeta-inactivo.png') }}" alt="Bot Inactivo">
+    <img src="{{ url_for('static', filename='img/bot_vegeta_inactivo.png') }}" alt="Bot Inactivo">
   {% endif %}
   <p class="estado-texto">
     {% if estado_bot == "Activo" %}
