@@ -7,7 +7,8 @@ from views import (
     clientes_por_mes,
     clima_actual,
     agregar_tarea,
-    listar_tareas
+    listar_tareas,
+    tareas_urgentes
 )
 import requests
 
