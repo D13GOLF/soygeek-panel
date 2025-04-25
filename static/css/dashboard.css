@@ -1,3 +1,6 @@
+/* FUENTE JARVIS */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 /* dashboard.css */
 body {
   margin: 0;
@@ -134,8 +137,9 @@ body {
 }
 
 /* Estado del Bot */
-.bot-activo {
-  color: #10ff75;
+.bot-activo, .bot-inactivo {
+  position: relative;
+  display: inline-block;
   font-weight: bold;
   font-size: 1.2em;
   display: inline-flex;
@@ -143,13 +147,32 @@ body {
   gap: 5px;
 }
 
+.bot-activo {
+  color: #10ff75;
+}
+
 .bot-inactivo {
   color: #ff4d4d;
-  font-weight: bold;
-  font-size: 1.2em;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+}
+
+.bot-activo::after, .bot-inactivo::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: #00ffff33;
+  text-shadow: 0 0 5px #00ffff;
+  opacity: 0.7;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
 }
 .grafico-titulo {
   color: #38bdf8;
@@ -426,17 +449,7 @@ body {
   0% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
   100% { box-shadow: 0 0 20px rgba(0,255,255,0.5); }
 }
-/* Fondo de partículas (estilo JARVIS) */
-#particles-js {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background: transparent;
-  pointer-events: none;
-}
-
+/* 👁️ Bot Vegeta con efecto holograma */
 .bot-vegeta {
   background: radial-gradient(circle, rgba(0, 50, 100, 0.2), rgba(0, 0, 50, 0.6));
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -445,6 +458,25 @@ body {
   padding: 20px;
   border-radius: 12px;
   transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.bot-vegeta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(0, 255, 255, 0.05), rgba(0, 255, 255, 0.2));
+  opacity: 0.3;
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
 
 .bot-vegeta img {
@@ -466,4 +498,14 @@ body {
   100% { transform: scale(1.05); filter: brightness(1.3); }
 }
 
+/* Fondo de partículas estilo JARVIS */
+#particles-js {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: transparent;
+  pointer-events: none;
+}
 
