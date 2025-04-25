@@ -83,6 +83,49 @@
 <button class="bot-toggle" onclick="toggleBot()">💬 Bot Geek</button>
 {% endblock %}
 {% block scripts %}
+<script>
+  function abrirAsistente() {
+    document.getElementById("asistente-consola").style.display = "flex";
+  }
+
+  function cerrarAsistente() {
+    document.getElementById("asistente-consola").style.display = "none";
+  }
+
+  function enviarComando() {
+    const input = document.getElementById("asistente-comando");
+    const comando = input.value.trim();
+    if (!comando) return;
+
+    const consola = document.getElementById("asistente-body");
+    consola.innerHTML += `<div><strong>Tú:</strong> ${comando}</div>`;
+    input.value = "";
+
+    if (!localStorage.getItem("user_id")) {
+      localStorage.setItem("user_id", crypto.randomUUID());
+    }
+    const user_id = localStorage.getItem("user_id");
+
+    fetch("/api/bot", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mensaje: comando, user_id })
+    })
+    .then(res => res.json())
+    .then(data => {
+      consola.innerHTML += `<div><strong>Vegeta:</strong> ${data.respuesta}</div>`;
+      consola.scrollTop = consola.scrollHeight;
+
+      // 🔊 Reproducir voz si existe
+      const voz = new Audio("{{ url_for('static', filename='audio/vegeta-respuesta.mp3') }}");
+      voz.play();
+    })
+    .catch(() => {
+      consola.innerHTML += `<div><strong>Vegeta:</strong> Error al procesar el comando</div>`;
+    });
+  }
+</script>
+
 <audio id="bot-sonido" src="{{ url_for('static', filename='audio/jarvis.mp3') }}"></audio>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
