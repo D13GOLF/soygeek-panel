@@ -79,6 +79,30 @@
 {% endblock %}
 {% block scripts %}
 <script>
+  
+// 🔥 Cargar tareas urgentes
+async function cargarTareasUrgentes() {
+  const lista = document.getElementById("lista-tareas-urgentes");
+  try {
+    const res = await fetch("/api/tareas-urgentes");
+    const tareas = await res.json();
+
+    if (tareas.length === 0) {
+      lista.innerHTML = "<li>✅ Sin tareas urgentes</li>";
+      return;
+    }
+
+    lista.innerHTML = "";
+    tareas.forEach(tarea => {
+      const li = document.createElement("li");
+      li.innerHTML = `📌 <strong>${tarea.titulo}</strong> – vence el <span style="color:#f87171;">${tarea.fecha_vencimiento}</span>`;
+      lista.appendChild(li);
+    });
+  } catch (e) {
+    lista.innerHTML = "<li>⚠️ No se pudo cargar tareas</li>";
+  }
+}
+
 let notasJarvis = JSON.parse(localStorage.getItem("notasJarvis") || "[]");
 
 function mostrarMensaje(msg, tipo = "normal") {
@@ -291,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 📊 Gráficos + clima al iniciar
   window.addEventListener("DOMContentLoaded", () => {
     cargarClima();
+    cargarTareasUrgentes(); // 👈 Agregado aquí
 
     new Chart(document.getElementById('graficoTareas'), {
       type: 'doughnut',
