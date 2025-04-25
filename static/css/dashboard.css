@@ -420,30 +420,25 @@ body {
   padding: 20px;
   border-radius: 12px;
   transition: all 0.3s ease-in-out;
-
   /* ✅ Forzamos visibilidad (evita conflictos con .card) */
   opacity: 1 !important;
   transform: none !important;
 }
-
 .clima-futurista img {
   width: 80px;
   height: 80px;
   margin: 0 auto 10px;
 }
-
 .clima-futurista p {
   font-size: 15px;
   margin: 4px 0;
   color: #f1f5f9;
 }
-
 .clima-futurista h3 {
   font-size: 18px;
   color: #38bdf8;
   margin-bottom: 10px;
 }
-
 /* 💫 Animación suave de pulso */
 @keyframes pulso {
   0% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
@@ -461,7 +456,6 @@ body {
   position: relative;
   overflow: hidden;
 }
-
 .bot-vegeta::before {
   content: '';
   position: absolute;
@@ -473,12 +467,10 @@ body {
   animation: scanline 3s linear infinite;
   pointer-events: none;
 }
-
 @keyframes scanline {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100%); }
 }
-
 .bot-vegeta img {
   width: 150px;
   height: auto;
@@ -486,18 +478,15 @@ body {
   margin-bottom: 10px;
   animation: botPulse 3s infinite alternate;
 }
-
 .bot-vegeta p {
   font-size: 1.1em;
   color: #38bdf8;
   font-weight: bold;
 }
-
 @keyframes botPulse {
   0% { transform: scale(1); filter: brightness(1); }
   100% { transform: scale(1.05); filter: brightness(1.3); }
 }
-
 /* Fondo de partículas estilo JARVIS */
 #particles-js {
   position: fixed;
@@ -507,47 +496,6 @@ body {
   z-index: 0;
   background: transparent;
   pointer-events: none;
-}
-.bot-holograma {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  width: 180px;
-  background: rgba(0, 255, 255, 0.08);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 15px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-  text-align: center;
-  z-index: 9998;
-  animation: hologramaFlotar 4s ease-in-out infinite alternate;
-}
-
-.bot-holograma img {
-  width: 100px;
-  height: auto;
-  filter: drop-shadow(0 0 6px #38bdf8);
-  animation: latido 2.5s infinite ease-in-out;
-}
-
-.estado-texto {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #38bdf8;
-  text-shadow: 0 0 4px #38bdf8;
-}
-
-@keyframes hologramaFlotar {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(8px); }
-}
-
-@keyframes latido {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
 }
 .asistente-consola {
   position: fixed;
@@ -566,7 +514,6 @@ body {
   z-index: 9999;
   backdrop-filter: blur(8px);
 }
-
 .asistente-header {
   background: #0f172a;
   padding: 10px;
@@ -576,7 +523,6 @@ body {
   align-items: center;
   border-bottom: 1px solid #38bdf8;
 }
-
 .asistente-body {
   padding: 10px;
   flex-grow: 1;
@@ -584,14 +530,12 @@ body {
   overflow-y: auto;
   max-height: 250px;
 }
-
 .asistente-input {
   display: flex;
   padding: 10px;
   border-top: 1px solid #38bdf8;
   background-color: #0f172a;
 }
-
 .asistente-input input {
   flex: 1;
   padding: 8px;
@@ -601,7 +545,6 @@ body {
   border-radius: 6px;
   margin-right: 8px;
 }
-
 .asistente-input button {
   background: #38bdf8;
   color: #0f172a;
@@ -611,7 +554,6 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-
 .asistente-toggle {
   position: fixed;
   bottom: 30px;
@@ -626,7 +568,6 @@ body {
   z-index: 9999;
   box-shadow: 0 0 10px #38bdf888;
 }
-
 .asistente-cerrar {
   background: none;
   border: none;
