@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(res => res.json())
     .then(data => {
-      consola.innerHTML += `<div><strong>Vegeta AI:</strong> ${data.respuesta}</div>`;
+      consola.innerHTML += `<div><strong>Vegeta:</strong> ${data.respuesta}</div>`;
       consola.scrollTop = consola.scrollHeight;
 
       // 🔊 Reproducir voz si existe
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
       voz.play();
     })
     .catch(() => {
-      consola.innerHTML += `<div><strong>Vegeta AI:</strong> Error al procesar el comando</div>`;
+      consola.innerHTML += `<div><strong>Vegeta:</strong> Error al procesar el comando</div>`;
     });
   }
 </script>
