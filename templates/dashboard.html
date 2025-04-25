@@ -1,10 +1,7 @@
 {% extends "layout.html" %}
-
 {% block content %}
 <h1>Resumen General</h1>
-
 <div class="dashboard-grid">
-
   <!-- 🌤️ Tarjeta de Clima -->
   <div class="card clima-futurista">
     <h3 class="titulo-clima">🌤️ Clima Actual</h3>
@@ -12,39 +9,51 @@
       <p>Cargando clima...</p>
     </div>
   </div>
-
+<!-- Panel Holográfico del Bot Vegeta -->
+<div class="bot-holograma">
+  {% if estado_bot == "Activo" %}
+    <img src="{{ url_for('static', filename='img/vegeta-activo.gif') }}" alt="Bot Activo">
+  {% elif estado_bot == "Pensando" %}
+    <img src="{{ url_for('static', filename='img/vegeta-pensando.gif') }}" alt="Bot Pensando">
+  {% else %}
+    <img src="{{ url_for('static', filename='img/vegeta-inactivo.png') }}" alt="Bot Inactivo">
+  {% endif %}
+  <p class="estado-texto">
+    {% if estado_bot == "Activo" %}
+      🟢 Bot Operativo
+    {% elif estado_bot == "Pensando" %}
+      🧠 Procesando orden...
+    {% else %}
+      🔴 Bot Apagado
+    {% endif %}
+  </p>
+</div>
   <!-- 🤖 Tarjeta Estado del Bot -->
   <div class="card bot-vegeta">
     <h3 class="titulo-clima">🤖 Estado del Bot</h3>
     <img id="img-bot-estado" src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Estado del Bot">
     <p id="label-bot-estado">🟢 Activo</p>
   </div>
-
   <!-- 📊 Métricas -->
   <div class="card"><h3>Clientes Totales</h3><p>{{ clientes_count }}</p></div>
   <div class="card"><h3>Tareas Pendientes</h3><p>{{ tareas_pendientes }}</p></div>
   <div class="card"><h3>Tareas Completadas</h3><p>{{ tareas_completadas }}</p></div>
   <div class="card"><h3>Tareas Vencidas</h3><p>{{ tareas_vencidas }}</p></div>
   <div class="card"><h3>Hostings por vencer</h3><p>{{ hostings_por_vencer }}</p></div>
-
 </div>
-
 <!-- 📈 Gráficos -->
 <div class="grafico-panel">
   <h3 style="text-align:center; color:#38bdf8;">📌 Tareas Pendientes y Completadas</h3>
   <canvas id="graficoTareas"></canvas>
 </div>
-
 <div class="grafico-panel">
   <h2 class="grafico-titulo">📊 Evolución de Tareas Completadas</h2>
   <canvas id="graficoLineaTareas"></canvas>
 </div>
-
 <div class="grafico-panel">
   <h3 style="text-align:center; color:#38bdf8;">📆 Clientes Registrados por Mes</h3>
   <canvas id="graficoClientes"></canvas>
 </div>
-
 <!-- 💬 Bot Widget -->
 <div id="bot-widget" class="bot-widget">
   <div class="bot-header">🤖 Bot Geek
@@ -56,11 +65,9 @@
     <button onclick="enviarMensaje()">Enviar</button>
   </div>
 </div>
-
 <!-- Botón flotante -->
 <button class="bot-toggle" onclick="toggleBot()">💬 Bot Geek</button>
 {% endblock %}
-
 {% block scripts %}
 <script>
   // 🌤️ Clima actual
@@ -93,7 +100,6 @@
       document.getElementById('weather-info').innerHTML = `<p>⚠️ Error cargando clima</p>`;
     }
   }
-
   // ⚡ Cambiar visual del bot (con imágenes)
   function actualizarEstadoBot(estado = "activo") {
     const img = document.getElementById("img-bot-estado");
@@ -114,7 +120,6 @@
         break;
     }
   }
-
   // 🧠 Lógica bot
   function toggleBot() {
     const widget = document.getElementById("bot-widget");
@@ -134,10 +139,9 @@
       localStorage.setItem("user_id", crypto.randomUUID());
     }
     const user_id = localStorage.getItem("user_id");
-
+    
     // Mostrar "procesando"
     actualizarEstadoBot("procesando");
-
     fetch("/api/bot", {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
