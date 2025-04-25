@@ -69,6 +69,16 @@
 <button class="bot-toggle" onclick="toggleBot()">💬 Bot Geek</button>
 {% endblock %}
 {% block scripts %}
+<audio id="bot-sonido" src="{{ url_for('static', filename='audio/jarvis.mp3') }}"></audio>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const estado = "{{ estado_bot }}";
+    if (estado === "Pensando") {
+      document.getElementById("bot-sonido").play();
+    }
+  });
+</script>
+
 <script>
   // 🌤️ Clima actual
   async function cargarClima(ciudad = "El Monte,CL") {
