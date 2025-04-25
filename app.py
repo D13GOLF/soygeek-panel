@@ -3,7 +3,12 @@ from flask import Flask, request, jsonify
 from core.auth import auth_bp
 from core.dashboard import dashboard_bp
 from init_db import crear_tablas
-from views import clientes_por_mes, clima_actual  # ✅ Endpoints API externos
+from views import (
+    clientes_por_mes,
+    clima_actual,
+    agregar_tarea,
+    listar_tareas
+)
 import requests
 
 # Inicializar la aplicación Flask
@@ -19,8 +24,9 @@ app.register_blueprint(dashboard_bp)
 app.add_url_rule('/api/clientes-mes', 'clientes_por_mes', clientes_por_mes)
 app.add_url_rule('/api/clima', 'clima_actual', clima_actual)
 
-# 🧱 Crear tablas si no existen
-crear_tablas()
+# ✅ Endpoints de tareas
+app.add_url_rule('/api/tareas', 'agregar_tarea', agregar_tarea, methods=['POST'])
+app.add_url_rule('/api/tareas/listar', 'listar_tareas', listar_tareas, methods=['GET'])
 
 # 🤖 Endpoint para interactuar con Bot-Geek desde frontend
 @app.route('/api/bot', methods=['POST'])
@@ -38,6 +44,9 @@ def api_bot():
         return jsonify({"respuesta": data.get("respuesta", "Sin respuesta 🤖")})
     except Exception as e:
         return jsonify({"respuesta": f"Error al contactar al bot: {str(e)}"}), 500
+
+# 🧱 Crear tablas si no existen
+crear_tablas()
 
 # Solo para desarrollo local
 if __name__ == '__main__':
