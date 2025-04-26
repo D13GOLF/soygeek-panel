@@ -3,7 +3,8 @@
 <h2>👥 Gestión de Clientes</h2>
 <p>Administra la información de tus clientes.</p>
 
-<button class="agregar-btn" onclick="document.getElementById('modalCliente').style.display='block'">➕ Agregar Cliente</button>
+<!-- Botón Agregar Cliente -->
+<button class="agregar-btn" onclick="abrirModalAgregar()">➕ Agregar Cliente</button>
 
 <table class="tabla-clientes mt-4">
   <thead>
@@ -25,6 +26,7 @@
       <td>{{ cliente['tipo_servicio'] or '—' }}</td>
       <td>{{ cliente['hosting_vencimiento'] or '—' }}</td>
       <td>
+        <button class="agregar-btn" onclick="abrirModalEditar({{ cliente['id'] }}, '{{ cliente['nombre'] }}', '{{ cliente['correo'] }}', '{{ cliente['telefono'] }}', '{{ cliente['tipo_servicio'] }}', '{{ cliente['hosting_vencimiento'] }}')">✏️</button>
         <form method="POST" action="/clientes/eliminar/{{ cliente['id'] }}" style="display:inline;">
           <button class="eliminar-btn" onclick="return confirm('¿Estás seguro de eliminar este cliente?')">🗑️</button>
         </form>
@@ -34,10 +36,10 @@
   </tbody>
 </table>
 
-<!-- Modal Agregar Cliente -->
+<!-- 🧩 Modal Agregar Cliente -->
 <div id="modalCliente" class="modal">
   <div class="modal-contenido">
-    <span class="cerrar" onclick="document.getElementById('modalCliente').style.display='none'">&times;</span>
+    <span class="cerrar" onclick="cerrarModalAgregar()">&times;</span>
     <h3>➕ Nuevo Cliente</h3>
     <form method="POST" action="/clientes/agregar">
       <input type="text" name="nombre" placeholder="Nombre" required>
@@ -49,6 +51,7 @@
         <option value="Hosting">📦 Hosting</option>
         <option value="IPTV">📺 IPTV</option>
         <option value="Soporte Informático">🛠️ Soporte Informático</option>
+        <option value="Desarrollo Web">🌐 Desarrollo Web</option>
         <option value="Otro">❓ Otro</option>
       </select>
 
@@ -57,4 +60,56 @@
     </form>
   </div>
 </div>
+
+<!-- 🧩 Modal Editar Cliente -->
+<div id="modalEditarCliente" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModalEditar()">&times;</span>
+    <h3>✏️ Editar Cliente</h3>
+    <form method="POST" id="formEditarCliente">
+      <input type="hidden" name="id" id="editar-id">
+      <input type="text" name="nombre" id="editar-nombre" placeholder="Nombre" required>
+      <input type="email" name="correo" id="editar-correo" placeholder="Correo" required>
+      <input type="text" name="telefono" id="editar-telefono" placeholder="Teléfono">
+      
+      <select name="tipo_servicio" id="editar-tipo_servicio" required>
+        <option value="">Seleccionar Servicio</option>
+        <option value="Hosting">📦 Hosting</option>
+        <option value="IPTV">📺 IPTV</option>
+        <option value="Soporte Informático">🛠️ Soporte Informático</option>
+        <option value="Desarrollo Web">🌐 Desarrollo Web</option>
+        <option value="Otro">❓ Otro</option>
+      </select>
+
+      <input type="date" name="hosting_vencimiento" id="editar-hosting_vencimiento" placeholder="Fecha de vencimiento de hosting">
+      <button type="submit">Actualizar Cliente</button>
+    </form>
+  </div>
+</div>
+
+<!-- 🎯 Scripts para controlar los modales -->
+<script>
+function abrirModalAgregar() {
+  document.getElementById('modalCliente').style.display = 'block';
+}
+
+function cerrarModalAgregar() {
+  document.getElementById('modalCliente').style.display = 'none';
+}
+
+function abrirModalEditar(id, nombre, correo, telefono, tipo_servicio, hosting_vencimiento) {
+  document.getElementById('modalEditarCliente').style.display = 'block';
+  document.getElementById('editar-id').value = id;
+  document.getElementById('editar-nombre').value = nombre;
+  document.getElementById('editar-correo').value = correo;
+  document.getElementById('editar-telefono').value = telefono;
+  document.getElementById('editar-tipo_servicio').value = tipo_servicio;
+  document.getElementById('editar-hosting_vencimiento').value = hosting_vencimiento !== 'None' ? hosting_vencimiento : '';
+  document.getElementById('formEditarCliente').action = `/clientes/editar/${id}`;
+}
+
+function cerrarModalEditar() {
+  document.getElementById('modalEditarCliente').style.display = 'none';
+}
+</script>
 {% endblock %}
