@@ -87,6 +87,8 @@ async function cargarTareasUrgentes() {
     const res = await fetch("/api/tareas-urgentes");
     const tareas = await res.json();
 
+    const audio = new Audio("{{ url_for('static', filename='audio/tarea-alerta.mp3') }}");
+
     if (tareas.length === 0) {
       lista.innerHTML = "<li>✅ Sin tareas urgentes</li>";
       return;
@@ -98,6 +100,10 @@ async function cargarTareasUrgentes() {
       li.innerHTML = `📌 <strong>${tarea.titulo}</strong> – vence el <span style="color:#f87171;">${tarea.fecha_vencimiento}</span>`;
       lista.appendChild(li);
     });
+
+    // 🔊 Reproducir alerta
+    audio.play();
+
   } catch (e) {
     lista.innerHTML = "<li>⚠️ No se pudo cargar tareas</li>";
   }
