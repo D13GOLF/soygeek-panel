@@ -26,11 +26,31 @@
   </ul>
 </div>
   <!-- 🤖 Tarjeta Estado del Bot -->
-  <div class="card bot-vegeta">
-    <h3 class="titulo-clima">🤖 Status Bot</h3>
-    <img id="img-bot-estado" src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Estado del Bot">
+<!-- 🤖 Panel Futurista del Bot -->
+<div class="card bot-vegeta">
+  <h3 class="titulo-clima">🤖 Estado del Bot</h3>
+  
+  <div class="bot-status">
+    <img id="img-bot-estado" src="{{ url_for('static', filename='img/bot_vegeta_activo.png') }}" alt="Bot Principal">
     <p id="label-bot-estado">🟢 Activo</p>
   </div>
+
+  <div class="plataformas-estado">
+    <div class="plataforma">
+      <img src="{{ url_for('static', filename='img/discord-icon.png') }}" alt="Discord">
+      <span id="estado-discord">🔵 Conectado</span>
+    </div>
+    <div class="plataforma">
+      <img src="{{ url_for('static', filename='img/web-icon.png') }}" alt="Web">
+      <span id="estado-web">🟢 Activo</span>
+    </div>
+    <div class="plataforma">
+      <img src="{{ url_for('static', filename='img/whatsapp-icon.png') }}" alt="WhatsApp">
+      <span id="estado-whatsapp">🟢 Activo</span>
+    </div>
+  </div>
+</div>
+
   <!-- 📊 Métricas -->
   <div class="card"><h3>Clientes Totales</h3><p>{{ clientes_count }}</p></div>
   <div class="card"><h3>Tareas Pendientes</h3><p>{{ tareas_pendientes }}</p></div>
