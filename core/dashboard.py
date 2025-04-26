@@ -34,6 +34,26 @@ def obtener_clientes_por_mes():
         return [], []
 
 
+def obtener_clientes_por_servicio():
+    """Retorna conteo de clientes por tipo de servicio"""
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            cur.execute("SELECT tipo_servicio FROM clientes")
+
+            servicios = [row['tipo_servicio'] or "Otro" for row in cur.fetchall()]
+            conteo = Counter(servicios)
+
+            servicios = list(conteo.keys())
+            cantidad = list(conteo.values())
+
+            return servicios, cantidad
+    except Exception as e:
+        print(f"Error al contar clientes por servicio: {e}")
+        return [], []
+
+
 @dashboard_bp.route('/')
 def home():
     with sqlite3.connect(DB_PATH) as conn:
@@ -47,8 +67,10 @@ def home():
 
         estado_bot = "Activo ✅"
 
+        # 📈 Gráfico Clientes por Mes
         meses, clientes_mes = obtener_clientes_por_mes()
 
+        # 📈 Gráfico Tareas completadas por mes
         tareas_completadas_mes = conn.execute("""
             SELECT strftime('%Y-%m', fecha_vencimiento) AS mes, COUNT(*) as total
             FROM tareas
@@ -60,6 +82,9 @@ def home():
 
         meses_tareas = [row['mes'] for row in tareas_completadas_mes]
         cantidades_tareas = [row['total'] for row in tareas_completadas_mes]
+
+        # 📊 Clientes por servicio
+        servicios, cantidad_servicios = obtener_clientes_por_servicio()
 
     return render_template(
         'dashboard.html',
@@ -74,6 +99,8 @@ def home():
         clientes_mes=clientes_mes,
         meses_tareas=meses_tareas,
         cantidades_tareas=cantidades_tareas,
+        servicios=servicios,
+        cantidad_servicios=cantidad_servicios
     )
 
 
@@ -91,7 +118,7 @@ def agregar_cliente():
     nombre = request.form['nombre']
     correo = request.form['correo']
     telefono = request.form.get('telefono', '')
-    tipo_servicio = request.form.get('tipo_servicio', 'Otro')  # 👈 Nuevo campo
+    tipo_servicio = request.form.get('tipo_servicio', 'Otro')
     hosting_vencimiento = request.form.get('hosting_vencimiento') or None
     fecha_registro = datetime.today().strftime('%Y-%m-%d')
 
@@ -108,6 +135,24 @@ def agregar_cliente():
 def eliminar_cliente(id):
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute("DELETE FROM clientes WHERE id = ?", (id,))
+    return redirect(url_for('dashboard.clientes'))
+
+
+@dashboard_bp.route('/clientes/editar/<int:id>', methods=['POST'])
+def editar_cliente(id):
+    nombre = request.form['nombre']
+    correo = request.form['correo']
+    telefono = request.form.get('telefono', '')
+    tipo_servicio = request.form.get('tipo_servicio', 'Otro')
+    hosting_vencimiento = request.form.get('hosting_vencimiento') or None
+
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.execute("""
+            UPDATE clientes
+            SET nombre = ?, correo = ?, telefono = ?, tipo_servicio = ?, hosting_vencimiento = ?
+            WHERE id = ?
+        """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento, id))
+
     return redirect(url_for('dashboard.clientes'))
 
 
