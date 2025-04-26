@@ -1,4 +1,3 @@
-<!-- templates/clientes.html -->
 {% extends 'layout.html' %}
 {% block content %}
 <h2>👥 Gestión de Clientes</h2>
@@ -12,6 +11,7 @@
       <th>Nombre</th>
       <th>Correo</th>
       <th>Teléfono</th>
+      <th>Servicio</th>
       <th>Hosting Vence</th>
       <th>Acciones</th>
     </tr>
@@ -22,6 +22,7 @@
       <td>{{ cliente['nombre'] }}</td>
       <td>{{ cliente['correo'] }}</td>
       <td>{{ cliente['telefono'] }}</td>
+      <td>{{ cliente['tipo_servicio'] or '—' }}</td>
       <td>{{ cliente['hosting_vencimiento'] or '—' }}</td>
       <td>
         <form method="POST" action="/clientes/eliminar/{{ cliente['id'] }}" style="display:inline;">
@@ -42,10 +43,18 @@
       <input type="text" name="nombre" placeholder="Nombre" required>
       <input type="email" name="correo" placeholder="Correo" required>
       <input type="text" name="telefono" placeholder="Teléfono">
+      
+      <select name="tipo_servicio" required>
+        <option value="">Seleccionar Servicio</option>
+        <option value="Hosting">📦 Hosting</option>
+        <option value="IPTV">📺 IPTV</option>
+        <option value="Soporte Informático">🛠️ Soporte Informático</option>
+        <option value="Otro">❓ Otro</option>
+      </select>
+
       <input type="date" name="hosting_vencimiento" placeholder="Fecha de vencimiento de hosting">
-      <button type="submit">Agregar</button>
+      <button type="submit">Agregar Cliente</button>
     </form>
   </div>
 </div>
 {% endblock %}
-
