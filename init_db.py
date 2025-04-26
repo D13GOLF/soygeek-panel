@@ -1,3 +1,4 @@
+# init_db.py
 import sqlite3
 import os
 
@@ -15,16 +16,22 @@ def crear_tablas():
                 nombre TEXT NOT NULL,
                 correo TEXT NOT NULL,
                 telefono TEXT,
-                hosting_vencimiento TEXT
+                hosting_vencimiento TEXT,
+                fecha_registro TEXT DEFAULT (date('now')),
+                tipo_servicio TEXT DEFAULT 'General' -- 🚀 Nuevo campo agregado
             )
         ''')
 
-        # 📅 Agregar columna de fecha_registro si no existe
+        # 📅 Verificar si las columnas existen (por si actualizas una DB ya creada)
         cursor.execute("PRAGMA table_info(clientes)")
         columnas_clientes = [col[1] for col in cursor.fetchall()]
         if 'fecha_registro' not in columnas_clientes:
             cursor.execute("ALTER TABLE clientes ADD COLUMN fecha_registro TEXT DEFAULT (date('now'))")
             print("✅ Columna 'fecha_registro' agregada a la tabla 'clientes'.")
+
+        if 'tipo_servicio' not in columnas_clientes:
+            cursor.execute("ALTER TABLE clientes ADD COLUMN tipo_servicio TEXT DEFAULT 'General'")
+            print("✅ Columna 'tipo_servicio' agregada a la tabla 'clientes'.")
 
         # ✅ Tabla de tareas
         cursor.execute('''
