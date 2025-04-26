@@ -574,4 +574,55 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+/* 👾 Futuristic Bot Status */
+.bot-vegeta {
+  background: linear-gradient(135deg, rgba(0, 50, 100, 0.3), rgba(0, 0, 50, 0.7));
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 20px #38bdf8;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.bot-vegeta img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  animation: pulseBot 3s infinite alternate;
+}
+
+.bot-status p {
+  font-size: 1.1em;
+  color: #10b981;
+  margin-bottom: 15px;
+}
+
+.plataformas-estado {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.plataforma {
+  text-align: center;
+}
+
+.plataforma img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.plataforma span {
+  display: block;
+  font-size: 0.9em;
+  color: #f1f5f9;
+}
+
+@keyframes pulseBot {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.05); filter: brightness(1.3); }
+}
+
 
