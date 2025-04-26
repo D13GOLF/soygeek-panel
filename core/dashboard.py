@@ -22,7 +22,7 @@ def obtener_clientes_por_mes():
 
             for fecha in fechas:
                 dt = datetime.strptime(fecha, "%Y-%m-%d")
-                clave = dt.strftime("%b %Y")  # Ej: "Apr 2025"
+                clave = dt.strftime("%b %Y")
                 conteo[clave] += 1
 
             meses = list(conteo.keys())
@@ -47,10 +47,8 @@ def home():
 
         estado_bot = "Activo ✅"
 
-        # Gráfico de clientes por mes
         meses, clientes_mes = obtener_clientes_por_mes()
 
-        # Tareas completadas por mes (últimos 6)
         tareas_completadas_mes = conn.execute("""
             SELECT strftime('%Y-%m', fecha_vencimiento) AS mes, COUNT(*) as total
             FROM tareas
@@ -93,14 +91,16 @@ def agregar_cliente():
     nombre = request.form['nombre']
     correo = request.form['correo']
     telefono = request.form.get('telefono', '')
-    hosting_vencimiento = request.form.get('hosting_vencimiento', None)
+    tipo_servicio = request.form.get('tipo_servicio', 'Otro')  # 👈 Nuevo campo
+    hosting_vencimiento = request.form.get('hosting_vencimiento') or None
     fecha_registro = datetime.today().strftime('%Y-%m-%d')
 
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
-            INSERT INTO clientes (nombre, correo, telefono, hosting_vencimiento, fecha_registro)
-            VALUES (?, ?, ?, ?, ?)""",
-            (nombre, correo, telefono, hosting_vencimiento, fecha_registro))
+            INSERT INTO clientes (nombre, correo, telefono, tipo_servicio, hosting_vencimiento, fecha_registro)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento, fecha_registro))
+
     return redirect(url_for('dashboard.clientes'))
 
 
