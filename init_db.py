@@ -16,8 +16,9 @@ def crear_tablas():
                 nombre TEXT NOT NULL,
                 correo TEXT NOT NULL,
                 telefono TEXT,
+                tipo_servicio TEXT,
                 hosting_vencimiento TEXT,
-                fecha_registro TEXT DEFAULT (date('now')),
+                fecha_registro TEXT DEFAULT (date('now'))
                 tipo_servicio TEXT DEFAULT 'General' -- 🚀 Nuevo campo agregado
             )
         ''')
@@ -33,7 +34,17 @@ def crear_tablas():
             cursor.execute("ALTER TABLE clientes ADD COLUMN tipo_servicio TEXT DEFAULT 'General'")
             print("✅ Columna 'tipo_servicio' agregada a la tabla 'clientes'.")
 
-        # ✅ Tabla de tareas
+        # 📝 Tabla de categorías de tareas (NUEVA)
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS categorias (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL,
+                color TEXT DEFAULT '#3b82f6' -- Color Futurista por defecto (Azul eléctrico)
+                    
+            )
+        ''')
+
+        # 🧩 Tabla de tareas
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS tareas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,11 +54,19 @@ def crear_tablas():
                 fecha_vencimiento DATE,
                 estado TEXT DEFAULT 'pendiente',
                 fecha_creacion TEXT DEFAULT (datetime('now')),
-                FOREIGN KEY (cliente_id) REFERENCES clientes (id)
+                categoria_id INTEGER,
+                FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+                FOREIGN KEY (categoria_id) REFERENCES categorias (id)
             )
         ''')
 
-        print("✅ Tablas creadas o actualizadas correctamente.")
+        # ✅ Crear categoría "Sin Categorizar" si no existe
+        cursor.execute("SELECT COUNT(*) FROM categorias WHERE nombre = 'Sin Categorizar'")
+        if cursor.fetchone()[0] == 0:
+            cursor.execute("INSERT INTO categorias (nombre, color) VALUES ('Sin Categorizar', '#64748b')")  # Gris futurista
+            print("✅ Categoría 'Sin Categorizar' creada.")
+
+        print("✅ Base de datos lista con Clientes, Categorías y Tareas actualizadas.")
 
 if __name__ == "__main__":
     crear_tablas()
