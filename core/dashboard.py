@@ -16,12 +16,10 @@ def obtener_clientes_por_mes():
             cur.execute("SELECT fecha_registro FROM clientes WHERE fecha_registro IS NOT NULL")
             fechas = [row['fecha_registro'] for row in cur.fetchall()]
             conteo = Counter()
-
             for fecha in fechas:
                 dt = datetime.strptime(fecha, "%Y-%m-%d")
                 clave = dt.strftime("%b %Y")
                 conteo[clave] += 1
-
             meses = list(conteo.keys())
             clientes_mes = list(conteo.values())
             return meses, clientes_mes
@@ -36,7 +34,6 @@ def obtener_clientes_por_servicio():
             cur = conn.cursor()
             cur.execute("SELECT tipo_servicio, COUNT(*) as total FROM clientes GROUP BY tipo_servicio")
             resultados = cur.fetchall()
-
             servicios = [row['tipo_servicio'] for row in resultados]
             cantidad = [row['total'] for row in resultados]
             return servicios, cantidad
@@ -88,6 +85,7 @@ def home():
         servicios=servicios,
         servicios_cantidad=servicios_cantidad
     )
+
 # === SERVICIOS ===
 @dashboard_bp.route('/servicios')
 def servicios():
@@ -105,3 +103,8 @@ def clientes():
         conn.row_factory = sqlite3.Row
         clientes = conn.execute("SELECT * FROM clientes").fetchall()
     return render_template('clientes.html', title="Gestión de Clientes", clientes=clientes)
+
+# === BOT ===
+@dashboard_bp.route('/bot')
+def bot():
+    return render_template('bot.html', title="Bot Geek")
