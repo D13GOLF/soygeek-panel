@@ -89,6 +89,13 @@
   <h3 class="grafico-titulo">📊 Evolución de Tareas Completadas</h3>
   <canvas id="graficoLineaTareas"></canvas>
 </div>
+
+<!--🚀 Gráfico de Clientes por Tipo de Servicio-->
+<div class="grafico-panel">
+  <h3 style="text-align:center; color:#38bdf8;">🚀 Clientes por Tipo de Servicio</h3>
+  <canvas id="graficoServicios"></canvas>
+</div>
+
 <!-- 🧠 Consola Holográfica Flotante -->
 <div id="asistente-consola" class="asistente-consola">
   <div class="asistente-header">🧠 Bot-Geek
@@ -418,5 +425,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+new Chart(document.getElementById('graficoServicios'), {
+  type: 'pie',
+  data: {
+    labels: {{ servicios | tojson }},
+    datasets: [{
+      data: {{ servicios_cantidad | tojson }},
+      backgroundColor: ['#38bdf8', '#f59e0b', '#10b981', '#ef4444']
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        labels: { color: '#fff', font: { weight: 'bold' } }
+      }
+    }
+  }
+});
+
 </script>
 {% endblock %}
