@@ -1,5 +1,126 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>🤖 Panel BotGeek</h2>
-<p>Pronto aquí gestionarás tu bot 🤖.</p>
+
+<h1>🤖 Panel de Control Bot-Geek</h1>
+
+<div class="bot-panel">
+  
+  <!-- Estado General del Bot -->
+  <div class="bot-status-card">
+    <h3>🧠 Estado Actual</h3>
+    <div id="bot-status-info">
+      <p>🔄 Consultando estado...</p>
+    </div>
+  </div>
+
+  <!-- Registro de Actividades (Logs) -->
+  <div class="bot-log-card">
+    <h3>📜 Registro de Actividades</h3>
+    <div id="bot-log" class="log-consola">
+      <p>🛰️ Iniciando consola de eventos...</p>
+    </div>
+  </div>
+
+  <!-- Comandos Rápidos -->
+  <div class="bot-commands-card">
+    <h3>🚀 Comandos Rápidos</h3>
+    <button onclick="enviarComandoBot('estado')">🔍 Ver Estado</button>
+    <button onclick="enviarComandoBot('reiniciar')">♻️ Reiniciar Bot</button>
+    <button onclick="enviarComandoBot('ping')">📡 Ping</button>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+// Estado inicial
+document.addEventListener("DOMContentLoaded", function() {
+  actualizarEstadoBot();
+  simularLogBot(); // 👈 Simulación de logs por ahora
+});
+
+// 🔄 Actualizar estado del bot
+function actualizarEstadoBot() {
+  const estadoDiv = document.getElementById("bot-status-info");
+  estadoDiv.innerHTML = "<p>✅ Bot funcionando correctamente en todas las plataformas.</p>";
+}
+
+// 🚀 Enviar comandos simulados
+function enviarComandoBot(comando) {
+  const log = document.getElementById("bot-log");
+  const fecha = new Date().toLocaleTimeString();
+
+  log.innerHTML += `<p>🛠️ [${fecha}] Comando enviado: <strong>${comando}</strong></p>`;
+  log.scrollTop = log.scrollHeight;
+}
+
+// 🔥 Simular actividad del bot
+function simularLogBot() {
+  const log = document.getElementById("bot-log");
+  setInterval(() => {
+    const eventos = [
+      "📩 Nuevo mensaje recibido en WhatsApp",
+      "💬 Consulta web procesada",
+      "🎶 Nueva canción cargada en Discord",
+      "🛠️ Reinicio de módulos exitoso",
+      "⚡ Verificando conexiones activas..."
+    ];
+    const evento = eventos[Math.floor(Math.random() * eventos.length)];
+    const fecha = new Date().toLocaleTimeString();
+    log.innerHTML += `<p>🛰️ [${fecha}] ${evento}</p>`;
+    log.scrollTop = log.scrollHeight;
+  }, 8000);
+}
+</script>
+
+<style>
+.bot-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.bot-status-card, .bot-log-card, .bot-commands-card {
+  background: #1f2937;
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.bot-status-card h3, .bot-log-card h3, .bot-commands-card h3 {
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+
+.log-consola {
+  background: #0f172a;
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+}
+
+.bot-commands-card button {
+  background-color: #38bdf8;
+  border: none;
+  color: #0f172a;
+  padding: 10px 15px;
+  margin: 5px 0;
+  width: 100%;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bot-commands-card button:hover {
+  background-color: #0ea5e9;
+}
+</style>
 {% endblock %}
