@@ -88,3 +88,11 @@ def home():
         servicios=servicios,
         servicios_cantidad=servicios_cantidad
     )
+
+# === CLIENTES ===
+@dashboard_bp.route('/clientes', endpoint='dashboard.clientes')
+def clientes():
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+        clientes = conn.execute("SELECT * FROM clientes").fetchall()
+    return render_template('clientes.html', title="Gestión de Clientes", clientes=clientes)
