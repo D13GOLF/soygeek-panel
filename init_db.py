@@ -55,5 +55,17 @@ def crear_tablas():
 
         print("✅ Base de datos lista y actualizada para el futuro, Principe Sayayin 🚀")
 
+        # 🧠 Tabla para registrar logs de actividad del Bot
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS logs_bot (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        origen TEXT,             -- Web, WhatsApp, Discord
+        usuario TEXT,            -- Nombre del usuario o número/ID
+        mensaje TEXT,            -- Mensaje o acción
+        fecha_hora TEXT DEFAULT (datetime('now')) -- Cuándo ocurrió
+    )
+''')
+print("✅ Tabla 'logs_bot' verificada/creada para registrar actividades del Bot.")
+
 if __name__ == "__main__":
     crear_tablas()
