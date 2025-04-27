@@ -90,7 +90,7 @@ def home():
     )
 
 # === CLIENTES ===
-@dashboard_bp.route('/clientes', endpoint='dashboard.clientes')
+@dashboard_bp.route('/clientes')
 def clientes():
     with sqlite3.connect(DB_PATH) as conn:
         conn.row_factory = sqlite3.Row
