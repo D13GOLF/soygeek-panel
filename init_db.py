@@ -9,38 +9,25 @@ def crear_tablas():
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
 
-        # 🧍 Tabla de clientes
+        # 🧍 Tabla de clientes (correcta)
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS clientes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nombre TEXT NOT NULL,
                 correo TEXT NOT NULL,
                 telefono TEXT,
-                tipo_servicio TEXT,
+                tipo_servicio TEXT DEFAULT 'General', -- ✅ Solo una vez
                 hosting_vencimiento TEXT,
                 fecha_registro TEXT DEFAULT (date('now'))
-                tipo_servicio TEXT DEFAULT 'General' -- 🚀 Nuevo campo agregado
             )
         ''')
 
-        # 📅 Verificar si las columnas existen (por si actualizas una DB ya creada)
-        cursor.execute("PRAGMA table_info(clientes)")
-        columnas_clientes = [col[1] for col in cursor.fetchall()]
-        if 'fecha_registro' not in columnas_clientes:
-            cursor.execute("ALTER TABLE clientes ADD COLUMN fecha_registro TEXT DEFAULT (date('now'))")
-            print("✅ Columna 'fecha_registro' agregada a la tabla 'clientes'.")
-
-        if 'tipo_servicio' not in columnas_clientes:
-            cursor.execute("ALTER TABLE clientes ADD COLUMN tipo_servicio TEXT DEFAULT 'General'")
-            print("✅ Columna 'tipo_servicio' agregada a la tabla 'clientes'.")
-
-        # 📝 Tabla de categorías de tareas (NUEVA)
+        # 📝 Tabla de categorías de tareas
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS categorias (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nombre TEXT NOT NULL,
-                color TEXT DEFAULT '#3b82f6' -- Color Futurista por defecto (Azul eléctrico)
-                    
+                color TEXT DEFAULT '#3b82f6' -- Azul eléctrico
             )
         ''')
 
@@ -63,10 +50,10 @@ def crear_tablas():
         # ✅ Crear categoría "Sin Categorizar" si no existe
         cursor.execute("SELECT COUNT(*) FROM categorias WHERE nombre = 'Sin Categorizar'")
         if cursor.fetchone()[0] == 0:
-            cursor.execute("INSERT INTO categorias (nombre, color) VALUES ('Sin Categorizar', '#64748b')")  # Gris futurista
+            cursor.execute("INSERT INTO categorias (nombre, color) VALUES ('Sin Categorizar', '#64748b')")  # Gris holográfico
             print("✅ Categoría 'Sin Categorizar' creada.")
 
-        print("✅ Base de datos lista con Clientes, Categorías y Tareas actualizadas.")
+        print("✅ Base de datos lista y actualizada para el futuro, Principe Sayayin 🚀")
 
 if __name__ == "__main__":
     crear_tablas()
