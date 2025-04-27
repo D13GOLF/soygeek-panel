@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from collections import Counter
 
-dashboard_bp = Blueprint('dashboard', __name__, url_prefix='', name_prefix='dashboard.')
+dashboard_bp = Blueprint('dashboard', __name__)
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db', 'data.db')
 
 def obtener_clientes_por_mes():
