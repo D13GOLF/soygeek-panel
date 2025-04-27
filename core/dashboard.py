@@ -88,6 +88,10 @@ def home():
         servicios=servicios,
         servicios_cantidad=servicios_cantidad
     )
+# === CLIENTES ===
+@dashboard_bp.route('/tareas')
+def tareas():
+    return render_template('tareas.html', title="Gestión de Tareas")
 
 # === CLIENTES ===
 @dashboard_bp.route('/clientes')
