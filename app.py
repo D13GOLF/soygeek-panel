@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 from core.auth import auth_bp
 from core.dashboard import dashboard_bp
+from core.clientes import clientes_bp  # 👈 NUEVO: Importar el blueprint de clientes
 from init_db import crear_tablas
 from views import (
     clientes_por_mes,
@@ -20,6 +21,7 @@ app.config.from_pyfile('config.py')
 # 🔗 Registrar Blueprints (rutas del panel)
 app.register_blueprint(auth_bp)
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(clientes_bp)  # 👈 NUEVO: Registrar blueprint de clientes
 
 # 📊 Rutas API personalizadas
 app.add_url_rule('/api/clientes-mes', 'clientes_por_mes', clientes_por_mes)
