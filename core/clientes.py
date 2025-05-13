@@ -40,3 +40,4 @@ def eliminar_cliente(id):
     resultado = eliminar_cliente_db(id)
     flash(resultado["mensaje"], "success" if resultado["ok"] else "danger")
     return redirect(url_for("clientes_bp.clientes"))
+
