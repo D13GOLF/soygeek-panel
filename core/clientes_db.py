@@ -24,17 +24,28 @@ def agregar_cliente_db(nombre, correo, telefono, tipo_servicio, hosting_vencimie
         return {"ok": False, "mensaje": f"❌ Error al agregar cliente: {e}"}
 
 def editar_cliente_db(cliente_id, nombre, correo, telefono, tipo_servicio, hosting_vencimiento):
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-            UPDATE clientes
-            SET nombre = ?, correo = ?, telefono = ?, tipo_servicio = ?, hosting_vencimiento = ?
-            WHERE id = ?
-        """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento, cliente_id))
-        conn.commit()
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE clientes
+                SET nombre = ?, correo = ?, telefono = ?, tipo_servicio = ?, hosting_vencimiento = ?
+                WHERE id = ?
+            """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento, cliente_id))
+            conn.commit()
+        return {"ok": True, "mensaje": "✅ Cliente actualizado correctamente"}
+    except Exception as e:
+        print(f"Error al editar cliente: {e}")
+        return {"ok": False, "mensaje": f"❌ Error al editar cliente: {e}"}
 
 def eliminar_cliente_db(cliente_id):
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM clientes WHERE id = ?", (cliente_id,))
-        conn.commit()
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM clientes WHERE id = ?", (cliente_id,))
+            conn.commit()
+        return {"ok": True, "mensaje": "🗑️ Cliente eliminado correctamente"}
+    except Exception as e:
+        print(f"Error al eliminar cliente: {e}")
+        return {"ok": False, "mensaje": f"❌ Error al eliminar cliente: {e}"}
+
