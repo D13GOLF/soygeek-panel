@@ -11,23 +11,27 @@ def clientes():
 
 @clientes_bp.route("/clientes/agregar", methods=["POST"])
 def agregar_cliente():
-    # 🔧 Extraer campos correctamente desde el formulario
-    nombre = request.form.get("nombre")
-    correo = request.form.get("correo")
-    telefono = request.form.get("telefono")
-    tipo_servicio = request.form.get("tipo_servicio")
-    hosting_vencimiento = request.form.get("hosting_vencimiento")
-
-    # ✅ Llamar con argumentos correctos
+    data = request.form
+    nombre = data.get("nombre")
+    correo = data.get("correo")
+    telefono = data.get("telefono")
+    tipo_servicio = data.get("tipo_servicio")
+    hosting_vencimiento = data.get("hosting_vencimiento")
+    
     resultado = agregar_cliente_db(nombre, correo, telefono, tipo_servicio, hosting_vencimiento)
-
     flash(resultado["mensaje"], "success" if resultado["ok"] else "danger")
     return redirect(url_for("clientes_bp.clientes"))
 
 @clientes_bp.route("/clientes/editar/<int:id>", methods=["POST"])
 def editar_cliente(id):
     data = request.form
-    resultado = editar_cliente_db(id, data)
+    nombre = data.get("nombre")
+    correo = data.get("correo")
+    telefono = data.get("telefono")
+    tipo_servicio = data.get("tipo_servicio")
+    hosting_vencimiento = data.get("hosting_vencimiento")
+
+    resultado = editar_cliente_db(id, nombre, correo, telefono, tipo_servicio, hosting_vencimiento)
     flash(resultado["mensaje"], "success" if resultado["ok"] else "danger")
     return redirect(url_for("clientes_bp.clientes"))
 
