@@ -10,13 +10,18 @@ def obtener_clientes_db():
         return cursor.execute("SELECT * FROM clientes").fetchall()
 
 def agregar_cliente_db(nombre, correo, telefono, tipo_servicio, hosting_vencimiento):
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO clientes (nombre, correo, telefono, tipo_servicio, hosting_vencimiento)
-            VALUES (?, ?, ?, ?, ?)
-        """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento))
-        conn.commit()
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO clientes (nombre, correo, telefono, tipo_servicio, hosting_vencimiento)
+                VALUES (?, ?, ?, ?, ?)
+            """, (nombre, correo, telefono, tipo_servicio, hosting_vencimiento))
+            conn.commit()
+        return {"ok": True, "mensaje": "✅ Cliente agregado correctamente"}
+    except Exception as e:
+        print(f"Error al agregar cliente: {e}")
+        return {"ok": False, "mensaje": f"❌ Error al agregar cliente: {e}"}
 
 def editar_cliente_db(cliente_id, nombre, correo, telefono, tipo_servicio, hosting_vencimiento):
     with sqlite3.connect(DB_PATH) as conn:
